@@ -11,9 +11,9 @@ export interface TimelineYear {
 export const timelineData: TimelineYear[] = [
   {
     year: 1996,
-    headline: "A Legend Is Born",
+    headline: "The World's Longest Midlife Crisis Begins",
     facts: [
-      "Pokémon Red & Green released in Japan — a franchise that would conquer the world.",
+      "Pokémon Red & Green released in Japan — a franchise that would consume your entire personality.",
       "Nintendo 64 launched, bringing us Super Mario 64 and true 3D gaming.",
       "Dolly the Sheep became the first mammal cloned from an adult cell.",
       "The Macarena was inescapable. Absolutely everywhere.",
@@ -21,7 +21,7 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "And somewhere in this beautiful chaos, YOU were born. The world wasn't ready.",
+    personalNote: "Somewhere in 1996, a loud, needy baby was born. The world did not ask for this. Congratulations on surviving this long, honestly nobody saw it coming.",
     icon: "🎂"
   },
   {
@@ -94,7 +94,7 @@ export const timelineData: TimelineYear[] = [
   },
   {
     year: 2002,
-    headline: "The Coolest Sibling Arrives",
+    headline: "The Better Sibling Finally Shows Up",
     facts: [
       "Xbox Live launches — online console gaming goes mainstream.",
       "Spider-Man becomes the first film to earn $100M in its opening weekend.",
@@ -103,7 +103,7 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "But the REAL headline? Your incredible sibling was born this year. Best year ever. You're welcome for making your life more interesting.",
+    personalNote: "The REAL main character enters the story. I was born. You had six years of being an only child and honestly, you peaked there. You're welcome for making your life less boring.",
     icon: "⭐"
   },
   {
@@ -194,7 +194,7 @@ export const timelineData: TimelineYear[] = [
     year: 2009,
     headline: "League of Legends Is Born",
     facts: [
-      "League of Legends released by Riot Games — THE game that would consume thousands of hours.",
+      "League of Legends released by Riot Games — THE game that would consume thousands of your hours and give you nothing in return.",
       "Minecraft development begins — a blocky revolution.",
       "Bitcoin network launches — digital gold or digital tulips?",
       "Avatar becomes the highest-grossing film ever.",
@@ -349,7 +349,7 @@ export const timelineData: TimelineYear[] = [
     headline: "Pandemic, Valorant & Among Us",
     facts: [
       "COVID-19 pandemic changes life as we know it.",
-      "VALORANT released by Riot Games — tactical shooter meets abilities. A new obsession.",
+      "VALORANT released by Riot Games — tactical shooter meets abilities. Another game to be hardstuck in.",
       "PS5 and Xbox Series X launch — next-gen arrives (if you can find one).",
       "SpaceX Crew Dragon sends astronauts to ISS — first commercial crew mission.",
       "Among Us becomes a global phenomenon — trust no one."
@@ -402,7 +402,7 @@ export const timelineData: TimelineYear[] = [
   },
   {
     year: 2024,
-    headline: "He Married The Love Of His Life",
+    headline: "Someone Actually Agreed To Marry Him",
     facts: [
       "AI breakthroughs continue to reshape every industry.",
       "Summer Olympics held in Paris — the City of Light shines.",
@@ -411,12 +411,12 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "But the BIGGEST headline of 2024: He married the incredible, fantastic, amazing, and warm Eugenia. What a match. What a love story. What a year.",
+    personalNote: "Against all odds and everyone's expectations, he married the incredible, fantastic, amazing, and warm Eugenia. She could've done better, but here we are. Genuinely though — she's the best thing that ever happened to him and it's not even close.",
     icon: "💍"
   },
   {
     year: 2025,
-    headline: "Baby Julia Changes Everything",
+    headline: "Baby Julia Arrives (RIP Sleep)",
     facts: [
       "Pokémon Legends: Z-A released — another adventure begins.",
       "AI continues to reshape the world in ways we're still figuring out.",
@@ -424,20 +424,20 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "But the ONLY headline that matters: Baby Julia was born! He's a DAD now. From gaming marathons to diaper marathons. What a crazy last couple of years.",
+    personalNote: "Baby Julia was born and he became a dad. The man who used to rage-quit League at 2 AM is now on diaper duty at 2 AM. Karma is beautiful. But seriously — Julia is lucky to have him. Even if she doesn't know it yet.",
     icon: "👶"
   },
   {
     year: 2026,
-    headline: "The Big 3-0",
+    headline: "30 Years Old. Somehow Still Alive.",
     facts: [
-      "30 years of Pokémon, gaming, science, love, and life.",
-      "A husband. A father. A gamer. A legend.",
-      "And somehow, still not Challenger rank."
+      "30 years of Pokémon, gaming, science, love, and questionable life choices.",
+      "A husband. A father. A gamer. Allegedly an adult.",
+      "And somehow, after all these years, still not Challenger rank."
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "HAPPY 30TH BIRTHDAY! What a triple decade it's been. From catching Pokémon to catching feelings, from Xbox LAN parties to baby bottle prep at 3 AM. Here's to the next 30 years of adventures — we're so excited for every single one of them.",
+    personalNote: "HAPPY 30TH BIRTHDAY. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, and thousands of hours in League of Legends. Two out of three ain't bad. Here's to 30 more years of me making fun of you. Love you, old man.",
     icon: "🎂"
   }
 ];

@@ -206,23 +206,30 @@ export default function NewspaperTimeline() {
               <div className="absolute bottom-2 right-2 text-[#D4A017]/30 text-lg">❧</div>
 
               <h2 className="font-newspaper-headline text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-5 italic">
-                Here's to the Next 30
+                30 Down, Who Knows How Many To Go
               </h2>
               <div className="w-16 h-[2px] bg-[#D4A017] mx-auto mb-5" />
               <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
-                What a crazy last couple of years. What an incredible triple decade.
+                What a crazy last couple of years. What a ridiculous triple decade.
+                You went from catching Pokémon to catching feelings, from Xbox LAN
+                parties to baby bottle prep at 3 AM.
               </p>
               <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
-                From Pokémon cards to parenthood. From Xbox LAN parties to 
-                late-night feedings. From League of Legends ranked grinds to 
-                the greatest adventure of all — being a husband and a father.
+                Somehow you tricked Eugenia into marrying you, brought Julia into
+                the world, and still find time to be hardstuck in ranked. Impressive,
+                honestly.
               </p>
               <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-5" />
-              <p className="font-typewriter text-base sm:text-lg md:text-xl leading-relaxed text-[#D4A017] font-bold">
-                Excited for the many, many more years to come. 
+              <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
+                But for real — you're an incredible brother, husband, and dad.
+                I'm not going to get too sappy because you'd never let me live it down,
+                but I'm genuinely excited for the next 30 years of roasting you.
               </p>
-              <p className="font-newspaper-headline text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a1a1a] mt-4 italic">
-                Happy 30th, old man. 🎂
+              <p className="font-typewriter text-base sm:text-lg md:text-xl leading-relaxed text-[#D4A017] font-bold">
+                Happy 30th, old man. You're ancient now. 🎂
+              </p>
+              <p className="font-typewriter text-xs text-[#8b7750] mt-2 italic">
+                (Love you though. Don't tell anyone I said that.)
               </p>
             </div>
 

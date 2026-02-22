@@ -167,10 +167,10 @@ export default function BirthdaySplash({ onTransition }: BirthdaySplashProps) {
             {/* Decorative corner */}
             <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-[#FFCA28]/20 to-transparent rounded-bl-full" />
             <p className="font-body text-base sm:text-lg text-[#1a1a1a] text-center leading-relaxed relative z-10">
-              Can't believe you're a <span className="font-bold text-[#FF7043] text-lg sm:text-xl">dad</span> now!
+              Can't believe you're a <span className="font-bold text-[#FF7043] text-lg sm:text-xl">dad</span> now. Poor kid.
             </p>
             <p className="font-body text-sm sm:text-base text-[#666] text-center mt-1">
-              From all-night gaming sessions to all-night diaper changes...
+              From rage-quitting League at 2 AM to diaper duty at 2 AM. Karma.
             </p>
             <p className="text-center mt-2">
               <span className="text-xl sm:text-2xl">👶</span>
@@ -227,7 +227,7 @@ export default function BirthdaySplash({ onTransition }: BirthdaySplashProps) {
           transition={{ delay: 3 }}
           className="mt-5 font-body text-xs sm:text-sm text-[#555] text-center italic"
         >
-          30 years of incredible moments await...
+          30 years of questionable decisions await...
         </motion.p>
       </div>
     </div>
