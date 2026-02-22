@@ -1,43 +1,17 @@
 /*
  * DESIGN: Party Popper → The Daily Chronicle
- * Act 2: Vintage newspaper with PAGE-FLIP animation.
- * Each year is its own newspaper "page" that flips like a broadsheet.
- * Navigation via arrows / swipe / keyboard.
+ * Act 2: Vintage newspaper with REALISTIC PAGE-FLIP animation using react-pageflip.
+ * Each year is its own newspaper "page" that physically flips like a book.
  */
 
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import HTMLFlipBook from 'react-pageflip';
+import { motion } from 'framer-motion';
 import { timelineData, type TimelineYear } from '@/lib/timelineData';
 
 const NEWSPAPER_BG = "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/J6v3pGaehyEQQMLK24aKor-img-2_1771723050000_na1fn_bmV3c3BhcGVyLXRleHR1cmU.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L0o2djNwR2FlaHlFUVFNTEsyNGFLb3ItaW1nLTJfMTc3MTcyMzA1MDAwMF9uYTFmbl9ibVYzYzNCaGNHVnlMWFJsZUhSMWNtVS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=rq5hto~lwLp9MKB6MB85TdGiDySY7I7ciGTcoYG-6S3mhDeJRdTmpoLfxgvDbya-nVos8cyVDr5Y6A0MWqYlO-srnHXRpLzVosZeb3OnAerbG96TYlzey8TUYhA~r4lLCILl~mqz0usVIGz3Ohf9mFk5cd1mAMoc~-i~opsVg9h79FdtTstYPZPWd4-nJqggRrUxqG~F~HtmlfEsO~0pJF5IS~FjkB0hRg7daEVVuN6XQ3bjFGdw2idL0SzSkpFFAwUclMeeXXb0-c45RSAeGUHRDCZSI0hqAJCt7EyXc~0Kuon-Xp0XL6AZN5G~b0s9kYgawNgF5i-CLGo4bYvX2Q__";
 
-// Total pages: intro (0) + 31 years (1-31) + closing (32)
 const TOTAL_PAGES = timelineData.length + 2; // intro + years + closing
-
-// Page flip variants
-const pageVariants = {
-  enter: (direction: number) => ({
-    rotateY: direction > 0 ? 90 : -90,
-    opacity: 0,
-    scale: 0.95,
-  }),
-  center: {
-    rotateY: 0,
-    opacity: 1,
-    scale: 1,
-  },
-  exit: (direction: number) => ({
-    rotateY: direction > 0 ? -90 : 90,
-    opacity: 0,
-    scale: 0.95,
-  }),
-};
-
-const pageTransition = {
-  type: "tween" as const,
-  duration: 0.5,
-  ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
-};
 
 /* ─── Decade label helper ─── */
 function getDecadeLabel(year: number): string | null {
@@ -48,299 +22,322 @@ function getDecadeLabel(year: number): string | null {
   return null;
 }
 
-/* ─── Single Year Page ─── */
-function YearPage({ data, index }: { data: TimelineYear; index: number }) {
-  const decadeLabel = getDecadeLabel(data.year);
-
-  return (
-    <div className="w-full max-w-3xl mx-auto px-4 sm:px-8">
-      {/* Decade divider if applicable */}
-      {decadeLabel && (
-        <div className="mb-6 sm:mb-8">
-          <hr className="newspaper-rule-double" />
-          <div className="text-center py-2">
-            <span className="font-newspaper-sc text-sm sm:text-lg tracking-[0.3em] text-[#8b7750] uppercase">
-              — {decadeLabel} —
-            </span>
-          </div>
-          <hr className="newspaper-rule-double" />
-        </div>
-      )}
-
-      <article className={`${data.isPersonalMilestone ? 'milestone-gold p-5 sm:p-7' : ''}`}>
-        {/* Year header */}
-        <div className="flex items-baseline gap-3 mb-3">
-          <span className="text-3xl sm:text-5xl select-none">{data.icon}</span>
-          <div className="flex-1">
-            <div className="flex items-baseline gap-2 flex-wrap">
-              <span
-                className="font-newspaper-sc text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide"
-                style={{ color: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }}
-              >
-                {data.year}
-              </span>
-              <span className="font-newspaper-body text-xs sm:text-sm text-[#8b7750] italic">
-                — Vol. {index + 1}, No. {data.year - 1995}
-              </span>
-            </div>
-            <hr
-              className="newspaper-rule"
-              style={{ borderColor: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }}
-            />
-          </div>
-        </div>
-
-        {/* Headline */}
-        <h3
-          className="font-newspaper-headline text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-4 text-[#1a1a1a] italic"
-        >
-          {data.headline}
-        </h3>
-
-        {/* Personal milestone note */}
-        {data.isPersonalMilestone && data.personalNote && (
-          <div className="mb-5 p-4 sm:p-5 border-l-4 border-[#D4A017] bg-[#D4A017]/8">
-            <p className="font-typewriter text-sm sm:text-base md:text-lg leading-relaxed text-[#1a1a1a]">
-              {data.personalNote}
-            </p>
-          </div>
-        )}
-
-        {/* Newspaper photo if available */}
-        {data.image && (
-          <div className="my-4 sm:my-5">
-            <div className="border border-[#1a1a1a]/30 p-1 bg-[#e8dcc4]">
-              <img
-                src={data.image}
-                alt={data.imageCaption || `Photo from ${data.year}`}
-                className="w-full h-auto grayscale contrast-125 opacity-90"
-                style={{ maxHeight: '280px', objectFit: 'cover' }}
-              />
-            </div>
-            {data.imageCaption && (
-              <p className="font-newspaper-body text-[10px] sm:text-xs text-[#8b7750] italic mt-1 text-center">
-                {data.imageCaption}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Facts */}
-        <div className={`${!data.isPersonalMilestone && data.facts.length > 3 ? 'newspaper-columns' : ''}`}>
-          {data.facts.map((fact, i) => (
-            <p
-              key={i}
-              className="font-newspaper-body text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-2.5 break-inside-avoid"
-            >
-              <span className="font-bold text-[#1a1a1a] mr-1">&#9658;</span>
-              {fact}
-            </p>
-          ))}
-        </div>
-      </article>
+/* ─── Page wrapper (react-pageflip requires forwardRef) ─── */
+const PageWrapper = forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string }>(
+  ({ children, className = '' }, ref) => (
+    <div ref={ref} className={`page-wrapper ${className}`}>
+      {children}
     </div>
-  );
-}
+  )
+);
+PageWrapper.displayName = 'PageWrapper';
 
 /* ─── Intro Page ─── */
-function IntroPage() {
-  return (
-    <div className="w-full max-w-3xl mx-auto px-4 sm:px-8 text-center">
+const IntroPage = forwardRef<HTMLDivElement>((_, ref) => (
+  <div ref={ref} className="page-wrapper">
+    <div className="page-inner flex flex-col items-center justify-center h-full text-center px-6 sm:px-10">
       {/* Ornamental top border */}
-      <div className="flex items-center gap-2 mb-3">
-        <div className="flex-1 h-[2px] bg-[#1a1a1a]" />
-        <span className="font-newspaper-body text-xs text-[#8b7750]">❧</span>
-        <div className="flex-1 h-[2px] bg-[#1a1a1a]" />
+      <div className="w-full max-w-md">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex-1 h-[2px] bg-[#1a1a1a]" />
+          <span className="font-newspaper-body text-xs text-[#8b7750]">❧</span>
+          <div className="flex-1 h-[2px] bg-[#1a1a1a]" />
+        </div>
+        <hr className="newspaper-rule-thin mb-2" />
       </div>
-      <hr className="newspaper-rule-thin mb-2" />
 
-      <h1 className="font-newspaper-display text-5xl sm:text-6xl md:text-8xl text-[#1a1a1a] leading-none py-2">
+      <h1 className="font-newspaper-display text-4xl sm:text-5xl md:text-7xl text-[#1a1a1a] leading-none py-2">
         The Daily Chronicle
       </h1>
-      <p className="font-newspaper-sc text-xs sm:text-sm md:text-base tracking-[0.25em] text-[#8b7750] mt-1">
+      <p className="font-newspaper-sc text-[10px] sm:text-xs md:text-sm tracking-[0.25em] text-[#8b7750] mt-1">
         EST. 1996 &middot; SPECIAL 30TH BIRTHDAY EDITION
       </p>
 
-      <hr className="newspaper-rule mt-3 mb-1" />
-      <div className="flex justify-between items-center font-newspaper-body text-[10px] sm:text-xs text-[#8b7750] italic px-1 sm:px-2">
-        <span>Price: Priceless</span>
-        <span className="hidden sm:inline">✦ 30 Years of History ✦</span>
-        <span className="sm:hidden">30 Years</span>
-        <span className="hidden sm:inline">"All the news that's fit to celebrate"</span>
-        <span className="sm:hidden">Celebrate!</span>
-      </div>
-      <hr className="newspaper-rule-thin mt-1" />
-      <div className="flex items-center gap-2 mt-2">
-        <div className="flex-1 h-[1px] bg-[#1a1a1a]/30" />
-        <span className="font-newspaper-body text-xs text-[#8b7750]">❧</span>
-        <div className="flex-1 h-[1px] bg-[#1a1a1a]/30" />
+      <div className="w-full max-w-md mt-3">
+        <hr className="newspaper-rule mb-1" />
+        <div className="flex justify-between items-center font-newspaper-body text-[9px] sm:text-xs text-[#8b7750] italic px-1">
+          <span>Price: Priceless</span>
+          <span>✦ 30 Years of History ✦</span>
+          <span>"All the news that's fit to celebrate"</span>
+        </div>
+        <hr className="newspaper-rule-thin mt-1" />
       </div>
 
-      <div className="mt-8 sm:mt-12">
-        <p className="font-typewriter text-sm sm:text-base md:text-lg text-[#4a4a4a] max-w-2xl mx-auto leading-relaxed">
+      <div className="mt-6 sm:mt-10 max-w-sm">
+        <p className="font-typewriter text-xs sm:text-sm md:text-base text-[#4a4a4a] leading-relaxed">
           From the birth of Pokémon to the birth of baby Julia, these pages chronicle
           thirty remarkable years of science, gaming, technology, and the most important
           moments of all — the personal ones.
         </p>
       </div>
 
-      <div className="mt-10 sm:mt-14">
-        <p className="font-newspaper-body text-xs sm:text-sm text-[#8b7750] italic animate-pulse">
+      <div className="mt-6 sm:mt-10">
+        <p className="font-newspaper-body text-[10px] sm:text-xs text-[#8b7750] italic animate-pulse">
           Turn the page to begin →
         </p>
       </div>
     </div>
-  );
-}
+  </div>
+));
+IntroPage.displayName = 'IntroPage';
+
+/* ─── Year Page ─── */
+const YearPage = forwardRef<HTMLDivElement, { data: TimelineYear; index: number }>(
+  ({ data, index }, ref) => {
+    const decadeLabel = getDecadeLabel(data.year);
+
+    return (
+      <div ref={ref} className="page-wrapper">
+        <div className="page-inner overflow-y-auto px-5 sm:px-8 py-6 sm:py-8 h-full">
+          {/* Decade divider if applicable */}
+          {decadeLabel && (
+            <div className="mb-4 sm:mb-6">
+              <hr className="newspaper-rule-double" />
+              <div className="text-center py-1">
+                <span className="font-newspaper-sc text-[10px] sm:text-sm tracking-[0.3em] text-[#8b7750] uppercase">
+                  — {decadeLabel} —
+                </span>
+              </div>
+              <hr className="newspaper-rule-double" />
+            </div>
+          )}
+
+          {/* EXTRA banner for personal milestones */}
+          {data.isPersonalMilestone && (
+            <div className="text-center mb-3">
+              <span className="inline-block bg-[#D4A017] text-white font-newspaper-headline text-[10px] sm:text-xs font-bold px-3 py-1 tracking-widest uppercase">
+                EXTRA! EXTRA!
+              </span>
+            </div>
+          )}
+
+          <article className={`${data.isPersonalMilestone ? 'border-2 border-[#D4A017] p-3 sm:p-5 bg-[#D4A017]/5' : ''}`}>
+            {/* Year header */}
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="text-2xl sm:text-3xl select-none">{data.icon}</span>
+              <div className="flex-1">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span
+                    className="font-newspaper-sc text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide"
+                    style={{ color: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }}
+                  >
+                    {data.year}
+                  </span>
+                  <span className="font-newspaper-body text-[9px] sm:text-xs text-[#8b7750] italic">
+                    — Vol. {index + 1}, No. {data.year - 1995}
+                  </span>
+                </div>
+                <hr
+                  className="newspaper-rule"
+                  style={{ borderColor: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }}
+                />
+              </div>
+            </div>
+
+            {/* Headline */}
+            <h3 className="font-newspaper-headline text-lg sm:text-xl md:text-2xl font-bold leading-tight mb-3 text-[#1a1a1a] italic">
+              {data.headline}
+            </h3>
+
+            {/* Personal milestone note */}
+            {data.isPersonalMilestone && data.personalNote && (
+              <div className="mb-3 p-3 sm:p-4 border-l-4 border-[#D4A017] bg-[#D4A017]/8">
+                <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#1a1a1a]">
+                  {data.personalNote}
+                </p>
+              </div>
+            )}
+
+            {/* Newspaper photo if available */}
+            {data.image && (
+              <div className="my-3">
+                <div className="border border-[#1a1a1a]/30 p-1 bg-[#e8dcc4]">
+                  <img
+                    src={data.image}
+                    alt={data.imageCaption || `Photo from ${data.year}`}
+                    className="w-full h-auto grayscale contrast-125 opacity-90"
+                    style={{ maxHeight: '180px', objectFit: 'cover' }}
+                    loading="lazy"
+                  />
+                </div>
+                {data.imageCaption && (
+                  <p className="font-newspaper-body text-[8px] sm:text-[10px] text-[#8b7750] italic mt-1 text-center">
+                    {data.imageCaption}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Facts */}
+            <div className="space-y-1.5">
+              {data.facts.map((fact, i) => (
+                <p
+                  key={i}
+                  className="font-newspaper-body text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#2a2a2a]"
+                >
+                  <span className="font-bold text-[#1a1a1a] mr-1">&#9658;</span>
+                  {fact}
+                </p>
+              ))}
+            </div>
+          </article>
+
+          {/* Page number at bottom */}
+          <div className="mt-auto pt-4 text-center">
+            <hr className="newspaper-rule-thin mb-2" />
+            <span className="font-newspaper-body text-[9px] text-[#8b7750]">
+              — {data.year} · Page {index + 2} of {TOTAL_PAGES} —
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
+YearPage.displayName = 'YearPage';
 
 /* ─── Closing Page ─── */
-function ClosingPage() {
-  return (
-    <div className="w-full max-w-3xl mx-auto px-4 sm:px-8 text-center">
-      <div className="flex items-center gap-2 mb-4">
+const ClosingPage = forwardRef<HTMLDivElement>((_, ref) => (
+  <div ref={ref} className="page-wrapper">
+    <div className="page-inner flex flex-col items-center justify-center h-full text-center px-5 sm:px-8 py-6">
+      <div className="flex items-center gap-2 mb-4 w-full max-w-sm">
         <div className="flex-1 h-[2px] bg-[#D4A017]" />
-        <span className="text-[#D4A017] text-xl">✦</span>
+        <span className="text-[#D4A017] text-lg">✦</span>
         <div className="flex-1 h-[2px] bg-[#D4A017]" />
       </div>
 
-      <div className="max-w-2xl mx-auto p-6 sm:p-10 border-2 border-[#D4A017] bg-gradient-to-b from-[#D4A017]/8 to-[#D4A017]/3 relative">
+      <div className="max-w-sm p-4 sm:p-6 border-2 border-[#D4A017] bg-gradient-to-b from-[#D4A017]/8 to-[#D4A017]/3 relative">
         {/* Corner ornaments */}
-        <div className="absolute top-2 left-2 text-[#D4A017]/30 text-lg">❧</div>
-        <div className="absolute top-2 right-2 text-[#D4A017]/30 text-lg rotate-180">❧</div>
-        <div className="absolute bottom-2 left-2 text-[#D4A017]/30 text-lg rotate-180">❧</div>
-        <div className="absolute bottom-2 right-2 text-[#D4A017]/30 text-lg">❧</div>
+        <div className="absolute top-1 left-1 text-[#D4A017]/30 text-sm">❧</div>
+        <div className="absolute top-1 right-1 text-[#D4A017]/30 text-sm rotate-180">❧</div>
+        <div className="absolute bottom-1 left-1 text-[#D4A017]/30 text-sm rotate-180">❧</div>
+        <div className="absolute bottom-1 right-1 text-[#D4A017]/30 text-sm">❧</div>
 
-        <h2 className="font-newspaper-headline text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-5 italic">
+        <h2 className="font-newspaper-headline text-2xl sm:text-3xl font-bold text-[#1a1a1a] mb-4 italic">
           30 Down, Dadbert.
         </h2>
-        <div className="w-16 h-[2px] bg-[#D4A017] mx-auto mb-5" />
-        <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
+        <div className="w-12 h-[2px] bg-[#D4A017] mx-auto mb-4" />
+        <p className="font-typewriter text-[11px] sm:text-xs leading-relaxed text-[#2a2a2a] mb-3">
           What a crazy last couple of years. What a ridiculous triple decade.
           From Babybert sleeping in the TJHSST hallways to forgetting your ID
           at Cornell move-in to zooming around NYC on a scooter like a maniac.
         </p>
-        <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
+        <p className="font-typewriter text-[11px] sm:text-xs leading-relaxed text-[#2a2a2a] mb-3">
           Somehow you tricked Eugenia into marrying you, brought Julia into
           the world, became a dog dad to Jasmine the diva, pivoted from burnt-out
           Deloitte consultant to tech PM (lateral move at best), and still find
           time to be hardstuck in ranked. Impressive, honestly.
         </p>
-        <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-5" />
-        <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
+        <div className="w-6 h-[1px] bg-[#8b7750] mx-auto my-3" />
+        <p className="font-typewriter text-[11px] sm:text-xs leading-relaxed text-[#2a2a2a] mb-3">
           I'm super proud to have you as an older brother and a figure I grew
           up learning from — even if I didn't listen to any of your nagging or
           lessons. I'm excited to continue annoying you in NYC.
         </p>
-        <p className="font-typewriter text-base sm:text-lg md:text-xl leading-relaxed text-[#D4A017] font-bold">
+        <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#D4A017] font-bold">
           Happy 30th, Dadbert. 🎂
         </p>
-        <p className="font-typewriter text-xs text-[#8b7750] mt-2 italic">
+        <p className="font-typewriter text-[10px] text-[#8b7750] mt-1 italic">
           (Love you though. Don't tell anyone I said that.)
         </p>
       </div>
 
-      <div className="flex items-center gap-2 mt-4">
+      <div className="flex items-center gap-2 mt-4 w-full max-w-sm">
         <div className="flex-1 h-[2px] bg-[#D4A017]" />
-        <span className="text-[#D4A017] text-xl">✦</span>
+        <span className="text-[#D4A017] text-lg">✦</span>
         <div className="flex-1 h-[2px] bg-[#D4A017]" />
       </div>
 
       {/* Footer */}
-      <div className="mt-8 font-newspaper-body text-xs text-[#8b7750] italic space-y-1">
+      <div className="mt-4 font-newspaper-body text-[9px] text-[#8b7750] italic space-y-0.5">
         <p>Published with love &middot; The Daily Chronicle &middot; Special Anniversary Edition</p>
         <p>© 1996–2026 &middot; All memories reserved</p>
-        <p className="mt-3 text-[10px]">❧</p>
+        <p className="mt-2 text-[8px]">❧</p>
       </div>
     </div>
-  );
-}
+  </div>
+));
+ClosingPage.displayName = 'ClosingPage';
 
 /* ─── Main Component ─── */
 export default function NewspaperTimeline() {
   const [currentPage, setCurrentPage] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
+  const bookRef = useRef<any>(null);
+  const [bookDimensions, setBookDimensions] = useState({ width: 550, height: 700 });
 
-  const goToPage = useCallback(
-    (newPage: number) => {
-      if (newPage < 0 || newPage >= TOTAL_PAGES) return;
-      setDirection(newPage > currentPage ? 1 : -1);
-      setCurrentPage(newPage);
-    },
-    [currentPage]
-  );
+  // Calculate responsive book dimensions
+  useEffect(() => {
+    const updateDimensions = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
 
-  const nextPage = useCallback(() => goToPage(currentPage + 1), [currentPage, goToPage]);
-  const prevPage = useCallback(() => goToPage(currentPage - 1), [currentPage, goToPage]);
+      let width: number;
+      let height: number;
+
+      if (vw < 640) {
+        // Mobile
+        width = Math.min(vw - 32, 380);
+        height = Math.min(vh - 120, 580);
+      } else if (vw < 1024) {
+        // Tablet
+        width = Math.min(vw - 80, 500);
+        height = Math.min(vh - 100, 680);
+      } else {
+        // Desktop
+        width = Math.min(vw * 0.4, 580);
+        height = Math.min(vh - 100, 750);
+      }
+
+      // Ensure minimum aspect ratio (roughly 3:4)
+      if (height / width < 1.1) {
+        height = width * 1.3;
+      }
+
+      setBookDimensions({ width: Math.round(width), height: Math.round(height) });
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  const onFlip = useCallback((e: any) => {
+    setCurrentPage(e.data);
+  }, []);
+
+  const flipNext = useCallback(() => {
+    bookRef.current?.pageFlip()?.flipNext();
+  }, []);
+
+  const flipPrev = useCallback(() => {
+    bookRef.current?.pageFlip()?.flipPrev();
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
         e.preventDefault();
-        nextPage();
+        flipNext();
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
-        prevPage();
+        flipPrev();
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [nextPage, prevPage]);
+  }, [flipNext, flipPrev]);
 
-  // Touch / swipe navigation
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartX.current = e.touches[0].clientX;
-      touchStartY.current = e.touches[0].clientY;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      const dx = e.changedTouches[0].clientX - touchStartX.current;
-      const dy = e.changedTouches[0].clientY - touchStartY.current;
-      // Only trigger if horizontal swipe is dominant and > 50px
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
-        if (dx < 0) nextPage();
-        else prevPage();
-      }
-    };
-
-    el.addEventListener('touchstart', handleTouchStart, { passive: true });
-    el.addEventListener('touchend', handleTouchEnd, { passive: true });
-    return () => {
-      el.removeEventListener('touchstart', handleTouchStart);
-      el.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [nextPage, prevPage]);
-
-  // Determine what to render for the current page
-  const renderPage = () => {
-    if (currentPage === 0) return <IntroPage />;
-    if (currentPage === TOTAL_PAGES - 1) return <ClosingPage />;
-    const yearIndex = currentPage - 1;
-    const data = timelineData[yearIndex];
-    return <YearPage data={data} index={yearIndex} />;
-  };
-
-  // Progress info
   const progressPercent = (currentPage / (TOTAL_PAGES - 1)) * 100;
   const currentYearLabel =
     currentPage === 0
       ? 'Cover'
-      : currentPage === TOTAL_PAGES - 1
+      : currentPage >= TOTAL_PAGES - 1
         ? 'Fin'
-        : String(timelineData[currentPage - 1].year);
+        : String(timelineData[Math.min(currentPage - 1, timelineData.length - 1)]?.year || '');
 
   return (
-    <div
-      ref={containerRef}
-      className="relative min-h-screen overflow-hidden select-none"
-    >
+    <div className="relative min-h-screen overflow-hidden select-none">
       {/* Paper texture background */}
       <div
         className="fixed inset-0 bg-cover bg-center opacity-25 pointer-events-none"
@@ -357,38 +354,61 @@ export default function NewspaperTimeline() {
         </div>
 
         {/* Page counter */}
-        <div className="fixed top-3 right-16 z-40 font-newspaper-body text-xs text-[#8b7750]">
+        <div className="fixed top-3 right-4 sm:right-16 z-40 font-newspaper-body text-xs text-[#8b7750]">
           <span className="font-bold text-[#1a1a1a]">{currentYearLabel}</span>
           <span className="mx-1">·</span>
           <span>{currentPage + 1} / {TOTAL_PAGES}</span>
         </div>
 
-        {/* Page content with flip animation */}
-        <div
-          className="relative z-10 flex items-center justify-center"
-          style={{ minHeight: '100vh', perspective: '1200px' }}
-        >
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentPage}
-              custom={direction}
-              variants={pageVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={pageTransition}
-              className="w-full py-14 sm:py-20"
-              style={{ transformOrigin: 'center center', backfaceVisibility: 'hidden' }}
+        {/* Book container */}
+        <div className="relative z-10 flex items-center justify-center" style={{ minHeight: '100vh' }}>
+          <div className="flipbook-container" style={{ perspective: '2500px' }}>
+            {/* @ts-ignore - react-pageflip types are incomplete */}
+            <HTMLFlipBook
+              ref={bookRef}
+              width={bookDimensions.width}
+              height={bookDimensions.height}
+              size="fixed"
+              minWidth={300}
+              maxWidth={600}
+              minHeight={450}
+              maxHeight={800}
+              drawShadow={true}
+              flippingTime={800}
+              usePortrait={true}
+              startZIndex={0}
+              autoSize={true}
+              maxShadowOpacity={0.5}
+              showCover={true}
+              mobileScrollSupport={false}
+              onFlip={onFlip}
+              className="newspaper-flipbook"
+              style={{}}
+              startPage={0}
+              clickEventForward={true}
+              useMouseEvents={true}
+              swipeDistance={30}
+              showPageCorners={true}
+              disableFlipByClick={false}
             >
-              {renderPage()}
-            </motion.div>
-          </AnimatePresence>
+              {/* Cover / Intro page */}
+              <IntroPage />
+
+              {/* Year pages */}
+              {timelineData.map((yearData, index) => (
+                <YearPage key={yearData.year} data={yearData} index={index} />
+              ))}
+
+              {/* Closing page */}
+              <ClosingPage />
+            </HTMLFlipBook>
+          </div>
         </div>
 
         {/* Navigation arrows */}
         {currentPage > 0 && (
           <button
-            onClick={prevPage}
+            onClick={flipPrev}
             className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-40 group focus:outline-none"
             aria-label="Previous page"
           >
@@ -401,7 +421,7 @@ export default function NewspaperTimeline() {
         )}
         {currentPage < TOTAL_PAGES - 1 && (
           <button
-            onClick={nextPage}
+            onClick={flipNext}
             className="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-40 group focus:outline-none"
             aria-label="Next page"
           >
@@ -415,8 +435,8 @@ export default function NewspaperTimeline() {
 
         {/* Bottom navigation hint */}
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 font-newspaper-body text-[10px] sm:text-xs text-[#8b7750]/60 text-center">
-          <span className="hidden sm:inline">← → arrow keys · swipe · click arrows</span>
-          <span className="sm:hidden">swipe or tap arrows</span>
+          <span className="hidden sm:inline">← → arrow keys · drag page corner · click arrows</span>
+          <span className="sm:hidden">swipe page or tap arrows</span>
         </div>
       </div>
     </div>
