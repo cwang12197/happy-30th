@@ -424,7 +424,20 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "But the ONLY headline that matters: Baby Julia was born! He's a DAD now. From gaming marathons to diaper marathons. What a crazy last couple of years, what a triple decade, and we're so excited for the many more adventures to come.",
+    personalNote: "But the ONLY headline that matters: Baby Julia was born! He's a DAD now. From gaming marathons to diaper marathons. What a crazy last couple of years.",
     icon: "👶"
+  },
+  {
+    year: 2026,
+    headline: "The Big 3-0",
+    facts: [
+      "30 years of Pokémon, gaming, science, love, and life.",
+      "A husband. A father. A gamer. A legend.",
+      "And somehow, still not Challenger rank."
+    ],
+    category: 'personal',
+    isPersonalMilestone: true,
+    personalNote: "HAPPY 30TH BIRTHDAY! What a triple decade it's been. From catching Pokémon to catching feelings, from Xbox LAN parties to baby bottle prep at 3 AM. Here's to the next 30 years of adventures — we're so excited for every single one of them.",
+    icon: "🎂"
   }
 ];

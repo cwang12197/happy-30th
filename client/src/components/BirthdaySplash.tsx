@@ -199,7 +199,7 @@ export default function BirthdaySplash({ onTransition }: BirthdaySplashProps) {
             →
           </motion.span>
           <span className="font-display text-lg sm:text-2xl font-bold bg-white/60 backdrop-blur-sm text-[#1a1a1a] px-4 py-1.5 rounded-full border border-[#4DD0E1]/40 shadow-sm">
-            2025
+            2026
           </span>
         </motion.div>
 

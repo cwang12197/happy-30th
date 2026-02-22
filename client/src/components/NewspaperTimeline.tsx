@@ -124,7 +124,7 @@ export default function NewspaperTimeline() {
               The Daily Chronicle
             </h1>
             <p className="font-newspaper-sc text-xs sm:text-sm md:text-base tracking-[0.25em] text-[#8b7750] mt-1">
-              EST. 1996 &middot; SPECIAL 30TH ANNIVERSARY EDITION
+              EST. 1996 &middot; SPECIAL 30TH BIRTHDAY EDITION
             </p>
 
             <hr className="newspaper-rule mt-3 mb-1" />
@@ -180,7 +180,7 @@ export default function NewspaperTimeline() {
 
           {/* 2020s */}
           <DecadeDivider decade="THE ROARING TWENTIES" />
-          {timelineData.filter(d => d.year >= 2020 && d.year <= 2025).map((data, i) => (
+          {timelineData.filter(d => d.year >= 2020 && d.year <= 2026).map((data, i) => (
             <YearArticle key={data.year} data={data} index={i + 24} />
           ))}
 
@@ -235,7 +235,7 @@ export default function NewspaperTimeline() {
             {/* Footer */}
             <div className="mt-8 font-newspaper-body text-xs text-[#8b7750] italic space-y-1">
               <p>Published with love &middot; The Daily Chronicle &middot; Special Anniversary Edition</p>
-              <p>© 1996–2025 &middot; All memories reserved</p>
+              <p>© 1996–2026 &middot; All memories reserved</p>
               <p className="mt-3 text-[10px]">❧</p>
             </div>
           </motion.div>
