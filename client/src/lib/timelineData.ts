@@ -6,6 +6,8 @@ export interface TimelineYear {
   isPersonalMilestone: boolean;
   personalNote?: string;
   icon: string;
+  image?: string;
+  imageCaption?: string;
 }
 
 export const timelineData: TimelineYear[] = [
@@ -21,7 +23,7 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "Somewhere in 1996, a loud, needy baby was born. The world did not ask for this. Congratulations on surviving this long, honestly nobody saw it coming.",
+    personalNote: "Somewhere in 1996, someone finally decided to leave after 2 days of overstaying and not paying. No wonder you're always late to things. But congrats, welcome to the world Robert (Babybert).",
     icon: "🎂"
   },
   {
@@ -220,7 +222,7 @@ export const timelineData: TimelineYear[] = [
   },
   {
     year: 2011,
-    headline: "Minecraft, Skyrim & Farewell Steve",
+    headline: "Nerd Alert: TJHSST Accepts Robert",
     facts: [
       "Minecraft officially releases — the world builds together.",
       "The Elder Scrolls V: Skyrim released — 'I used to be an adventurer like you...'",
@@ -228,9 +230,10 @@ export const timelineData: TimelineYear[] = [
       "Pokémon Black & White released worldwide.",
       "CRISPR gene editing technology developed — science fiction becomes reality."
     ],
-    category: 'gaming',
-    isPersonalMilestone: false,
-    icon: "⛏️"
+    category: 'personal',
+    isPersonalMilestone: true,
+    personalNote: "Probably the most important decision of your life tbh. I never hear you NOT talk about it. And let's not forget the iconic yearbook photo of you sleeping in the hallways. I show it to all my friends to see if they can locate the hallway.",
+    icon: "🏫"
   },
   {
     year: 2012,
@@ -262,7 +265,7 @@ export const timelineData: TimelineYear[] = [
   },
   {
     year: 2014,
-    headline: "Twitch, Comets & Ice Buckets",
+    headline: "Robert Goes Big Red (Cornell, Baby)",
     facts: [
       "Amazon acquires Twitch for $970 million — gaming streaming explodes.",
       "Rosetta spacecraft lands a probe on a comet — first time ever!",
@@ -270,13 +273,14 @@ export const timelineData: TimelineYear[] = [
       "Amazon Echo / Alexa launched — AI enters your living room.",
       "The ALS Ice Bucket Challenge goes mega-viral."
     ],
-    category: 'tech',
-    isPersonalMilestone: false,
-    icon: "🧊"
+    category: 'personal',
+    isPersonalMilestone: true,
+    personalNote: "Nerd alert, nerd alert. Robert steps foot on Cornell's campus. TA for the hardest computer systems course... but didn't even take CS 2112. Classic overachiever energy with selective effort.",
+    icon: "🎓"
   },
   {
     year: 2015,
-    headline: "Gravitational Waves & Pluto Close-Up",
+    headline: "The Great ID Disaster of Sophomore Year",
     facts: [
       "LIGO detects gravitational waves for the first time — Einstein was right!",
       "New Horizons reaches Pluto — we finally see the (dwarf) planet up close.",
@@ -284,9 +288,10 @@ export const timelineData: TimelineYear[] = [
       "The CRISPR revolution takes off in labs worldwide.",
       "Pokémon GO development announced — the hype begins."
     ],
-    category: 'science',
-    isPersonalMilestone: false,
-    icon: "🌊"
+    category: 'personal',
+    isPersonalMilestone: true,
+    personalNote: "Move-in day, sophomore year. This genius forgot his ID so he couldn't even move in properly. Although I did like Saigon Kitchen. I still think about it sometimes.",
+    icon: "🪪"
   },
   {
     year: 2016,
@@ -342,7 +347,9 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'science',
     isPersonalMilestone: false,
-    icon: "🕳️"
+    icon: "🕳️",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/tXjqSHXPYZVGyVEK.jpg",
+    imageCaption: "NYC's electric mobility boom — a familiar sight for @robertonthezoom"
   },
   {
     year: 2020,
@@ -356,7 +363,9 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'gaming',
     isPersonalMilestone: false,
-    icon: "😷"
+    icon: "😷",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/YktslPFiirnuArrQ.jpg",
+    imageCaption: "Artist's depiction of @robertonthezoom navigating midtown traffic"
   },
   {
     year: 2021,
@@ -374,7 +383,7 @@ export const timelineData: TimelineYear[] = [
   },
   {
     year: 2022,
-    headline: "Webb's First Light & AI Dawn",
+    headline: "Jasmine The Diva Enters The Chat",
     facts: [
       "James Webb Space Telescope sends first images — the universe in stunning detail.",
       "Pokémon Legends: Arceus released — open-world Pokémon, finally!",
@@ -382,9 +391,12 @@ export const timelineData: TimelineYear[] = [
       "Pokémon Scarlet & Violet released.",
       "Artemis I launches — humanity heads back to the Moon."
     ],
-    category: 'tech',
-    isPersonalMilestone: false,
-    icon: "🤖"
+    category: 'personal',
+    isPersonalMilestone: true,
+    personalNote: "Eugenia got Jasmine the Bichon Frise, but Robert basically watched her grow up. His first kid, really. She's a total diva but very cute. The princess of the household before Julia came along.",
+    icon: "🐶",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/OxNBLpmzjQRfiCBN.jpg",
+    imageCaption: "Jasmine the Bichon — local diva, demands treats"
   },
   {
     year: 2023,
@@ -429,7 +441,7 @@ export const timelineData: TimelineYear[] = [
   },
   {
     year: 2026,
-    headline: "30 Years Old. Somehow Still Alive.",
+    headline: "Happy 30th, Dadbert.",
     facts: [
       "30 years of Pokémon, gaming, science, love, and questionable life choices.",
       "A husband. A father. A gamer. A 'product manager.' Allegedly an adult.",
@@ -437,7 +449,7 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "HAPPY 30TH BIRTHDAY. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, a Deloitte stint you won't shut up about, a tech PM title you definitely oversell, and thousands of hours in League of Legends. Three out of five ain't bad. Here's to 30 more years of me making fun of you. Love you, old man.",
+    personalNote: "HAPPY 30TH BIRTHDAY, DADBERT. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, a Deloitte stint you won't shut up about, a tech PM title you definitely oversell, and thousands of hours in League of Legends. Three out of five ain't bad. Here's to 30 more years of me making fun of you. Love you, old man.",
     icon: "🎂"
   }
 ];

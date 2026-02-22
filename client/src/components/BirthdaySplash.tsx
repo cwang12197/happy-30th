@@ -179,7 +179,7 @@ export default function BirthdaySplash({ onTransition }: BirthdaySplashProps) {
               <span className="text-xl sm:text-2xl">👶</span>
               <span className="text-lg sm:text-xl mx-1">🎮</span>
               <span className="text-base sm:text-lg mx-1 text-[#CE93D8]">→</span>
-              <span className="text-xl sm:text-2xl">👨‍👧</span>
+              <span className="text-xl sm:text-2xl">👴</span>
             </p>
           </div>
         </motion.div>
