@@ -474,7 +474,7 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "HAPPY 30TH BIRTHDAY, DADBERT. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, a Deloitte stint you won't shut up about, a tech PM title you definitely oversell, and thousands of hours in League of Legends. Three out of five ain't bad. Here's to 30 more years of me making fun of you. Love you, old man.",
+    personalNote: "HAPPY 30TH BIRTHDAY, DADBERT. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, a diva bichon, and thousands of hours in League of Legends. Let's be honest \u2014 you peaked at TJ. Everything since has been a slow, graceful decline. Here's to 30 more years of questionable decisions and me making fun of every single one of them.",
     icon: "🎂"
   }
 ];
