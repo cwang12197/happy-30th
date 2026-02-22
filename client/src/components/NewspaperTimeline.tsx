@@ -216,12 +216,14 @@ export default function NewspaperTimeline() {
               </p>
               <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
                 Somehow you tricked Eugenia into marrying you, brought Julia into
-                the world, and still find time to be hardstuck in ranked. Impressive,
-                honestly.
+                the world, pivoted from Deloitte consulting to being a tech PM
+                (lateral move at best), and still find time to be hardstuck in ranked.
+                Impressive, honestly.
               </p>
               <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-5" />
               <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#2a2a2a] mb-4">
-                But for real — you're an incredible brother, husband, and dad.
+                But for real — you're an incredible brother, husband, dad, and
+                even a decent PM (don't let that go to your head).
                 I'm not going to get too sappy because you'd never let me live it down,
                 but I'm genuinely excited for the next 30 years of roasting you.
               </p>

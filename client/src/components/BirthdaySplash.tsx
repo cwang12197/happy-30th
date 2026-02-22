@@ -170,7 +170,10 @@ export default function BirthdaySplash({ onTransition }: BirthdaySplashProps) {
               Can't believe you're a <span className="font-bold text-[#FF7043] text-lg sm:text-xl">dad</span> now. Poor kid.
             </p>
             <p className="font-body text-sm sm:text-base text-[#666] text-center mt-1">
-              From rage-quitting League at 2 AM to diaper duty at 2 AM. Karma.
+              Ex-Deloitte consultant turned tech PM turned diaper changer.
+            </p>
+            <p className="font-body text-xs sm:text-sm text-[#999] text-center mt-0.5">
+              The career pivot nobody asked for.
             </p>
             <p className="text-center mt-2">
               <span className="text-xl sm:text-2xl">👶</span>

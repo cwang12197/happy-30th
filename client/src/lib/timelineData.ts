@@ -424,7 +424,7 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "Baby Julia was born and he became a dad. The man who used to rage-quit League at 2 AM is now on diaper duty at 2 AM. Karma is beautiful. But seriously — Julia is lucky to have him. Even if she doesn't know it yet.",
+    personalNote: "Baby Julia was born and he became a dad. The man who used to rage-quit League at 2 AM is now on diaper duty at 2 AM. He'll probably try to project-manage her sleep schedule. Karma is beautiful. But seriously — Julia is lucky to have him. Even if she doesn't know it yet.",
     icon: "👶"
   },
   {
@@ -432,12 +432,12 @@ export const timelineData: TimelineYear[] = [
     headline: "30 Years Old. Somehow Still Alive.",
     facts: [
       "30 years of Pokémon, gaming, science, love, and questionable life choices.",
-      "A husband. A father. A gamer. Allegedly an adult.",
+      "A husband. A father. A gamer. A 'product manager.' Allegedly an adult.",
       "And somehow, after all these years, still not Challenger rank."
     ],
     category: 'personal',
     isPersonalMilestone: true,
-    personalNote: "HAPPY 30TH BIRTHDAY. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, and thousands of hours in League of Legends. Two out of three ain't bad. Here's to 30 more years of me making fun of you. Love you, old man.",
+    personalNote: "HAPPY 30TH BIRTHDAY. Three whole decades on this planet and what do you have to show for it? A beautiful wife, an adorable daughter, a Deloitte stint you won't shut up about, a tech PM title you definitely oversell, and thousands of hours in League of Legends. Three out of five ain't bad. Here's to 30 more years of me making fun of you. Love you, old man.",
     icon: "🎂"
   }
 ];
