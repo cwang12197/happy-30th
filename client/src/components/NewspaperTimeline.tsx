@@ -391,8 +391,8 @@ function ClosingContent() {
         </p>
         <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
           And yet somehow you still managed to trick Eugenia into marrying you,
-          bring Julia into the world, adopt Jasmine the diva, forget your Cornell
-          ID on move-in day, and zoom around NYC on a scooter like you own the place.
+          bring Julia into the world, adopt Jasmine the diva, questionably graduated
+          from Cornell with no bio major to show for it, and zoom around NYC on a scooter like you own the place.
           Not bad for someone whose peak was a high school hallway.
         </p>
         <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-3" />
