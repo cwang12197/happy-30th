@@ -8,6 +8,8 @@ export interface TimelineYear {
   icon: string;
   image?: string;
   imageCaption?: string;
+  /** Small scattered illustration images for the newspaper page */
+  scatteredImages?: { url: string; caption: string; position: 'left' | 'right' }[];
 }
 
 export const timelineData: TimelineYear[] = [
@@ -37,7 +39,10 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'mixed',
     isPersonalMilestone: false,
-    icon: "🧙"
+    icon: "🧙",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/nL3jwK9Bnm8FSFwcKDJd2Q_1771727696975_na1fn_ZG9sbHktc2hlZXA.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L25MM2p3SzlCbm04RlNGd2NLREpkMlFfMTc3MTcyNzY5Njk3NV9uYTFmbl9aRzlzYkhrdGMyaGxaWEEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=IXnooYeaeR0iqPTtAqN938JVRAXmyTl3Vp38x60YDKOQucMe2CqUdZCIQhzfFCROk5~m0XCtq8oowsZOk7jdu~vyxtNie5ghImhjcNadaGsVKZDTIjwBd8Majt5j40057h1N9S-rZ7xp~qTDAc942eWFoppkHFHe1KUiJpr84-byqpDdOO3sZZ2n1jgjMlWBA2X8cttatpAH-rv5ujGjzD1fPU8tVjjuW7TndjvWWXltoA26Dgvb1WGV9ohjr~MD0rLl6OrzKwZCW43L13r8KgpL0mIeX0llSJT824gaL3JDYtwAxmAtl5CmPkS-bcvYfNDJYVfkoqUgXgXKRF-C3A__", caption: "Dolly the Sheep", position: "right" }
+    ]
   },
   {
     year: 1998,
@@ -51,7 +56,11 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'gaming',
     isPersonalMilestone: false,
-    icon: "🎮"
+    icon: "🎮",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/nL3jwK9Bnm8FSFwcKDJd2Q_1771727696976_na1fn_Z2FtZWJveS1wb2tlbW9u.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L25MM2p3SzlCbm04RlNGd2NLREpkMlFfMTc3MTcyNzY5Njk3Nl9uYTFmbl9aMkZ0WldKdmVTMXdiMnRsYlc5dS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=DzW6RFjNyZr3gIHHn3fOOc5eOxwj79JKxoYUQd0Iqqyj6Nng6FAsIZ8u75IX-uVOTQ2i-VcPPn8DQGWVA3sSQhwaQgpouU~dDjaenqwQZcoUeTGLCNO0pc9gkv~wkUjNQUPrlNy~mwDNKI6~er7VDfL3VzP1EGRJABEmJKerkDI~2JdyLj8HulBajdvvRbEO2~-xUNitTfinHyfh~4tX~hz-v6~5k5QSy2jRqkpbzaUnu8Rid23gbSlWlxpzInCV4vJdl~GEd~ub4vLDexyHVRE-uKqkgT0qgxZECjXaydYFYXNpr-iXm7L1GM4uyS~jVdnEAbcY~SA5RgaRQi9SYw__", caption: "Game Boy + Pokémon", position: "left" },
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/nL3jwK9Bnm8FSFwcKDJd2Q_1771727696976_na1fn_aW1hYy1nMw.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L25MM2p3SzlCbm04RlNGd2NLREpkMlFfMTc3MTcyNzY5Njk3Nl9uYTFmbl9hVzFoWXkxbk13LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Mcd1qiokTW5xjX6mfGo6gsCzfaEKPwBvKSj6tee0-YXS6jM8ohyZ7UBwCyq7~-5tZtzCfit73v~S6O4O-y3aIm5JqAzqjUrZCjvJAnyJRAzUINhrG-1ZlwG1bkQyEtpQ1N--elSySfjwyOcK8z639D5MPUUpWF7H5hYlfC7MwhLnOsnvSOaGFqzUvGh8xIcSywk0~Hu1gmOv4FkdW~kvIy4BL2-Q9SXDlzk1Vpr5ra9GPd4~ka0jWBeOpsOJIcHZ62VhgW2bfLRhwwLsZ3WcMNQex7sgI36sKqo53EVQo9kPc5rFKraeS3teVb5prMgCLOCoslOJ~nw5YUNmxVogjQ__", caption: "iMac G3", position: "right" }
+    ]
   },
   {
     year: 1999,
@@ -92,7 +101,11 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'tech',
     isPersonalMilestone: false,
-    icon: "🎯"
+    icon: "🎯",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/nL3jwK9Bnm8FSFwcKDJd2Q_1771727696977_na1fn_eGJveC1jb25zb2xl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L25MM2p3SzlCbm04RlNGd2NLREpkMlFfMTc3MTcyNzY5Njk3N19uYTFmbl9lR0p2ZUMxamIyNXpiMnhsLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=hAlda7WUl~QOvuaOZYC98jFXIfSv7yQFC2bPI6I5RrsCVsgzDsNoiYPpKYxpQkKvPzIqB89zD1Lz6a70Vb3MIOR-3eANptmNqmIR3q3czZfUgmE33WihFQYe6gOKUnnEzAr4xGODbY-8uL0ICEqvQGOSS0~Sz0SI-AaZIyLzDdAl0DljgGjtvHHev2tYOjoKWNgbpYbT4sc7rfLXKF3i7RrdzvW9I8gPvNO06IgeU13SkrzTXG4vEqnDfu9hu6ZyEcgI1GY1LbePfmrw5qmxqelMoVfXi76sd20RvO0XnLY2slVX8D0Tnxq1NUkqzqcq54CgQh29AwznaIRB3gXh0g__", caption: "Xbox", position: "left" },
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/nL3jwK9Bnm8FSFwcKDJd2Q_1771727696976_na1fn_aXBvZC1jbGFzc2lj.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L25MM2p3SzlCbm04RlNGd2NLREpkMlFfMTc3MTcyNzY5Njk3Nl9uYTFmbl9hWEJ2WkMxamJHRnpjMmxqLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=DD4WIIS373UjsthcpZoX4i4OLtxfDBzOlFJQG8q1~g8giHtSTo1yEkp-ENFIl4Ajw~IRjqHwXWxjcxz9qYxGKFmEAt-KddXVoY8rPq40f3nKUSwHkF6jj2oQiTB~YdDjkzSATqPVhBUBXFLpGRzdj~DqMITtXHdnPixgR5Am5c8ORAr54gKJWysnjmlLYhDsn3Bqa8lbSasGgZTKCIxqixAVfliNbBi5GmZ-iu9E-e7wdYcI~Gj1Uw~YJ6ykmqzLbcHi2I88czLxznyokB6K6byvb5zzQuuUdEJp742-RGajeiv5zsELpHS6etqw9Yp1mo5KcsQfcdU2N2aCqm6SLg__", caption: "iPod", position: "right" }
+    ]
   },
   {
     year: 2002,
@@ -176,7 +189,10 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'tech',
     isPersonalMilestone: false,
-    icon: "📱"
+    icon: "📱",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/zs0MnoAmvwBEUbR8bH4JI2_1771727772396_na1fn_aXBob25lLW9yaWdpbmFs.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L3pzME1ub0FtdndCRVViUjhiSDRKSTJfMTc3MTcyNzc3MjM5Nl9uYTFmbl9hWEJvYjI1bExXOXlhV2RwYm1Gcy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=UgNeUnEOaHW1oprp7tL7bdLOtaFyWuyFXMOc0fI2Oa5YlrX4B-Zab2OnvxrOu~Jc-V0Ej~iUaLE3h7ASsztdJE3BIcGsidsGRI9CB5fmbyqvJ5v6p~9F8AQYfkJon-xZOODbXsObCp57ncCuRM12jBIicUM0-YTin02-FD-5DYEUECJAPorIW6Jr4D4KhIUgYtKmkbjwdnydFKe9f3JRAwZ~XsW20M24~uEysOkMzgt21-rKdfKTiBrk61~t1ieQUx3ZmjsYm-w7RBHw2mr9KNr43Q-Ni6EodR1O3taCxNv-S4OYjVwR4Ofljvb8w14hjZRBbf1drMG9Sey4KY~WKQ__", caption: "The Original iPhone", position: "right" }
+    ]
   },
   {
     year: 2008,
@@ -204,7 +220,11 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'gaming',
     isPersonalMilestone: false,
-    icon: "⚔️"
+    icon: "⚔️",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/zs0MnoAmvwBEUbR8bH4JI2_1771727772399_na1fn_bGVhZ3VlLW9mLWxlZ2VuZHM.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L3pzME1ub0FtdndCRVViUjhiSDRKSTJfMTc3MTcyNzc3MjM5OV9uYTFmbl9iR1ZoWjNWbExXOW1MV3hsWjJWdVpITS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=pvFgjSyn6dtHOKr5JSOMKNinK6U--~8tqF2trY~syPFs8j7oMuO8F~O9tmViN1d4VSCx7GRyGcybZFobnGI3ydnwMn6I23b3nImXhoLGdoAlL~TkngYpxX0Yp6SZk3GegrFqLCYIgvE1y1yWg~hpD6pWYMPmaIWFVYWvJvZtCM0i--5WSJw0CSDuVjpJrXbXb4b4EBP-cZqIe7acojyOsTQZlNk1mvqrpq69Akc59wTwigmNujDoRvxmodhE-deQ0RWAbch2UzwHb1K3IvRlaErZJKQVNxdfKGmv1Cpjhyjly6T3ETfFWHgX2KT9P8lFVzS0k75N-GtSLF~7X5lFxg__", caption: "League of Legends", position: "left" },
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/zs0MnoAmvwBEUbR8bH4JI2_1771727772397_na1fn_bWluZWNyYWZ0LWNyZWVwZXI.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L3pzME1ub0FtdndCRVViUjhiSDRKSTJfMTc3MTcyNzc3MjM5N19uYTFmbl9iV2x1WldOeVlXWjBMV055WldWd1pYSS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=CpYs1gIdg2J905dLOjtNC2xqlYBOtgNMQinCecM-sTB7c4I1beAMlnwEcwSc6EssSqCZtcbsDWO50TNl562yuwUng2AEVps8psIzhhMrTX8Z~WzTvNlIPlaCJJjJSQNORPn7c5ZkcDrideBGvAIWDK8P1hTive7MkNfHmTJXnpBD2d3lVAPGA4D2o39RxieskC1P3W1qh9XPg36f9BsFlh6enahH1PFAIlpzm4hKtGh3cVsENHZzjsnK~sOXgnNRFiC88D0UxjJ3rwYXw8Uu3igN7-b5edTSEMorSfcFQf3gwY~8zoSch5WOlFAb3trmjfCShAWt9ugT0LmOInqBxQ__", caption: "Minecraft Creeper", position: "right" }
+    ]
   },
   {
     year: 2010,
@@ -247,7 +267,10 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'science',
     isPersonalMilestone: false,
-    icon: "🔬"
+    icon: "🔬",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/zs0MnoAmvwBEUbR8bH4JI2_1771727772397_na1fn_bWFycy1yb3Zlcg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L3pzME1ub0FtdndCRVViUjhiSDRKSTJfMTc3MTcyNzc3MjM5N19uYTFmbl9iV0Z5Y3kxeWIzWmxjZy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=WcxModgxTRzWdHO8iMgK0aG-V4sR~xXK5vMilsXRrRQEcEb6suO1ltdS8pG7zBHwHzyJfaQJV-x6A9hH9I494WGETC9FJvgfTIO3efriuDLJGEs~Cl21FMeuhhVmlQu740Ne6a-gWUmeQerYkJGcQI3aYSKqn~60CoBQs9xSDZ3yM~AklBPji0bmg35CFIr4hVjttRKhFV2Fep~1XT2ruDlezzVww2h9cEI3kc5LBtK6Q4IRrP3jfz8kFZfoAg0UdVWkrJlTOAWflXUzLdkD~9R4bTByG2NhsPpdWE83FXybNvw03i3mVCQxVBnBnGCg2kcdu5coJIT0wMbuU-Zbjw__", caption: "Mars Curiosity Rover", position: "right" }
+    ]
   },
   {
     year: 2013,
@@ -282,7 +305,6 @@ export const timelineData: TimelineYear[] = [
     year: 2015,
     headline: "The Great ID Disaster of Sophomore Year",
     facts: [
-      "LIGO detects gravitational waves for the first time — Einstein was right!",
       "New Horizons reaches Pluto — we finally see the (dwarf) planet up close.",
       "Fallout 4 released — another 200 hours gone.",
       "The CRISPR revolution takes off in labs worldwide.",
@@ -333,7 +355,10 @@ export const timelineData: TimelineYear[] = [
     ],
     category: 'gaming',
     isPersonalMilestone: false,
-    icon: "🚀"
+    icon: "🚀",
+    scatteredImages: [
+      { url: "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/zs0MnoAmvwBEUbR8bH4JI2_1771727772398_na1fn_dGVzbGEtbW9kZWwtcw.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L3pzME1ub0FtdndCRVViUjhiSDRKSTJfMTc3MTcyNzc3MjM5OF9uYTFmbl9kR1Z6YkdFdGJXOWtaV3d0Y3cucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=orvhgE27mcYGPQzK6IQEonOgALzZDxz~emt5x9CpitLyUZgPajS0qIQiFQEFtTSSL3GY3yMLDGbA4FI15jo2pglLZZ7FXuCmh~Y78Ej~MTZfIgYURTix0rwJF-DcNz6WCeKaAMhM~qmMvSW5jEvIJvO88hgrNt4lE96ArPAAugHJJyFZm-GFd-Wta8aQ1hPdKseyY7siZPjuww5ad--BnxyxWHtPI8xf-~rRpr~jZH31SFIpSfjoexWBSoxvExKWqEBGrvx~tF5u5diNpjaKNo8cYggVrbV3nL2gsFhS3HU2l4UU4VnPvsegXF4mOkSbmLfqQf1WzdcLo0i5-w34VQ__", caption: "Tesla in Space", position: "left" }
+    ]
   },
   {
     year: 2019,
@@ -348,7 +373,7 @@ export const timelineData: TimelineYear[] = [
     category: 'science',
     isPersonalMilestone: false,
     icon: "🕳️",
-    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/tXjqSHXPYZVGyVEK.jpg",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/knRpMORfdJeXkHRy.png",
     imageCaption: "NYC's electric mobility boom — a familiar sight for @robertonthezoom"
   },
   {
@@ -364,7 +389,7 @@ export const timelineData: TimelineYear[] = [
     category: 'gaming',
     isPersonalMilestone: false,
     icon: "😷",
-    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/YktslPFiirnuArrQ.jpg",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663336994935/MHZbxiXNkYLvPWgo.png",
     imageCaption: "Artist's depiction of @robertonthezoom navigating midtown traffic"
   },
   {
