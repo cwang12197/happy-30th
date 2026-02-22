@@ -40,77 +40,60 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Custom party colors */
+  --color-party-yellow: oklch(0.9 0.15 90);
+  --color-party-coral: oklch(0.72 0.18 30);
+  --color-party-teal: oklch(0.78 0.12 195);
+  --color-party-lavender: oklch(0.78 0.1 300);
+  --color-party-gold: oklch(0.72 0.14 75);
+  --color-newspaper-ink: oklch(0.2 0.01 60);
+  --color-newspaper-paper: oklch(0.93 0.03 80);
+
+  /* Custom fonts */
+  --font-display: 'Baloo 2', cursive;
+  --font-body: 'Quicksand', sans-serif;
+  --font-newspaper-display: 'UnifrakturMaguntia', cursive;
+  --font-newspaper-headline: 'Playfair Display', serif;
+  --font-newspaper-sc: 'Playfair Display SC', serif;
+  --font-newspaper-body: 'Lora', serif;
+  --font-typewriter: 'Special Elite', cursive;
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
+  --primary: oklch(0.72 0.18 30);
+  --primary-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.72 0.18 30);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --chart-1: oklch(0.9 0.15 90);
+  --chart-2: oklch(0.72 0.18 30);
+  --chart-3: oklch(0.78 0.12 195);
+  --chart-4: oklch(0.78 0.1 300);
+  --chart-5: oklch(0.72 0.14 75);
   --radius: 0.65rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
+  --foreground: oklch(0.2 0.01 60);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
+  --card-foreground: oklch(0.2 0.01 60);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
+  --popover-foreground: oklch(0.2 0.01 60);
+  --secondary: oklch(0.96 0.02 80);
+  --secondary-foreground: oklch(0.4 0.01 60);
+  --muted: oklch(0.96 0.02 80);
+  --muted-foreground: oklch(0.55 0.02 60);
+  --accent: oklch(0.96 0.02 80);
+  --accent-foreground: oklch(0.2 0.01 60);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
+  --ring: oklch(0.72 0.18 30);
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-foreground: oklch(0.2 0.01 60);
+  --sidebar-accent: oklch(0.96 0.02 80);
+  --sidebar-accent-foreground: oklch(0.2 0.01 60);
   --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
-}
-
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  --sidebar-ring: oklch(0.72 0.18 30);
 }
 
 @layer base {
@@ -119,6 +102,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    overflow-x: hidden;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -134,24 +119,11 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -162,16 +134,232 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
   }
+}
+
+/* ============================================
+   PARTY SPLASH SECTION STYLES
+   ============================================ */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* ============================================
+   NEWSPAPER SECTION STYLES
+   ============================================ */
+
+.font-newspaper-display {
+  font-family: var(--font-newspaper-display);
+}
+
+.font-newspaper-headline {
+  font-family: var(--font-newspaper-headline);
+}
+
+.font-newspaper-sc {
+  font-family: var(--font-newspaper-sc);
+}
+
+.font-newspaper-body {
+  font-family: var(--font-newspaper-body);
+}
+
+.font-typewriter {
+  font-family: var(--font-typewriter);
+}
+
+/* Newspaper column layout */
+.newspaper-columns {
+  column-count: 2;
+  column-gap: 2rem;
+  column-rule: 1px solid #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .newspaper-columns {
+    column-count: 1;
+    column-rule: none;
+  }
+}
+
+/* Newspaper horizontal rule */
+.newspaper-rule {
+  border: none;
+  border-top: 2px solid #1a1a1a;
+  margin: 0.5rem 0;
+}
+
+.newspaper-rule-thin {
+  border: none;
+  border-top: 1px solid #1a1a1a;
+  margin: 0.25rem 0;
+}
+
+.newspaper-rule-double {
+  border: none;
+  border-top: 3px double #1a1a1a;
+  margin: 0.5rem 0;
+}
+
+/* Aged paper effect */
+.aged-paper {
+  background-color: #f0e4d0;
+  position: relative;
+}
+
+.aged-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(139, 119, 80, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 119, 80, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(139, 119, 80, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Special milestone gold accent */
+.milestone-gold {
+  border: 2px solid #D4A017;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.08), rgba(212, 160, 23, 0.02));
+  position: relative;
+}
+
+.milestone-gold::before {
+  content: 'EXTRA! EXTRA!';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #D4A017;
+  color: #1a1a1a;
+  font-family: var(--font-newspaper-headline);
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  padding: 2px 16px;
+  white-space: nowrap;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(255, 202, 40, 0.3); }
+  50% { text-shadow: 0 0 40px rgba(255, 202, 40, 0.6), 0 0 80px rgba(255, 112, 67, 0.3); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stamp {
+  0% { transform: translateX(-50%) scale(3) rotate(-5deg); opacity: 0; }
+  60% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 1; }
+  70% { transform: translateX(-50%) scale(1.05) rotate(0deg); }
+  100% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes page-fold {
+  0% { transform: perspective(1200px) rotateX(0deg); opacity: 1; }
+  100% { transform: perspective(1200px) rotateX(-90deg); opacity: 0; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+/* Scrollbar styling for newspaper section */
+.newspaper-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.newspaper-section::-webkit-scrollbar-track {
+  background: #f0e4d0;
+}
+
+.newspaper-section::-webkit-scrollbar-thumb {
+  background: #8b7750;
+  border-radius: 4px;
+}
+
+/* Confetti particle */
+.confetti-particle {
+  position: fixed;
+  top: -10px;
+  z-index: 100;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
 }
