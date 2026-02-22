@@ -1,12 +1,11 @@
 /*
  * DESIGN: Party Popper → The Daily Chronicle
- * Act 2: Full-screen newspaper pages with typewriter headlines,
- * scattered product images, and fireworks on the closing page.
- * Each year is a full-viewport page with smooth crossfade transitions.
+ * Act 2: Full-screen newspaper with react-pageflip for realistic page-curl animation.
+ * Typewriter headlines, scattered product images, fireworks on closing page.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useCallback, useEffect, useRef, useState, forwardRef } from 'react';
+import HTMLFlipBook from 'react-pageflip';
 import { timelineData, type TimelineYear } from '@/lib/timelineData';
 
 const NEWSPAPER_BG = "https://private-us-east-1.manuscdn.com/sessionFile/sMHpuJN7nHggUQUV7RaYok/sandbox/J6v3pGaehyEQQMLK24aKor-img-2_1771723050000_na1fn_bmV3c3BhcGVyLXRleHR1cmU.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc01IcHVKTjduSGdnVVFVVjdSYVlvay9zYW5kYm94L0o2djNwR2FlaHlFUVFNTEsyNGFLb3ItaW1nLTJfMTc3MTcyMzA1MDAwMF9uYTFmbl9ibVYzYzNCaGNHVnlMWFJsZUhSMWNtVS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=rq5hto~lwLp9MKB6MB85TdGiDySY7I7ciGTcoYG-6S3mhDeJRdTmpoLfxgvDbya-nVos8cyVDr5Y6A0MWqYlO-srnHXRpLzVosZeb3OnAerbG96TYlzey8TUYhA~r4lLCILl~mqz0usVIGz3Ohf9mFk5cd1mAMoc~-i~opsVg9h79FdtTstYPZPWd4-nJqggRrUxqG~F~HtmlfEsO~0pJF5IS~FjkB0hRg7daEVVuN6XQ3bjFGdw2idL0SzSkpFFAwUclMeeXXb0-c45RSAeGUHRDCZSI0hqAJCt7EyXc~0Kuon-Xp0XL6AZN5G~b0s9kYgawNgF5i-CLGo4bYvX2Q__";
@@ -86,13 +85,11 @@ function FireworksCanvas() {
     function createRocket() {
       const x = Math.random() * canvas!.width;
       rockets.push({
-        x,
-        y: canvas!.height,
+        x, y: canvas!.height,
         vy: -(8 + Math.random() * 6),
         targetY: canvas!.height * (0.15 + Math.random() * 0.35),
         color: colors[Math.floor(Math.random() * colors.length)],
-        trail: [],
-        exploded: false,
+        trail: [], exploded: false,
       });
     }
 
@@ -102,16 +99,12 @@ function FireworksCanvas() {
         const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.3;
         const speed = 2 + Math.random() * 5;
         particles.push({
-          x: rocket.x,
-          y: rocket.y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          life: 1,
-          maxLife: 60 + Math.random() * 40,
+          x: rocket.x, y: rocket.y,
+          vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+          life: 1, maxLife: 60 + Math.random() * 40,
           color: Math.random() > 0.3 ? rocket.color : colors[Math.floor(Math.random() * colors.length)],
           size: 1.5 + Math.random() * 2.5,
-          gravity: 0.03 + Math.random() * 0.02,
-          friction: 0.98,
+          gravity: 0.03 + Math.random() * 0.02, friction: 0.98,
         });
       }
     }
@@ -122,27 +115,20 @@ function FireworksCanvas() {
     function animate() {
       ctx!.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
-
       frame++;
-      if (frame % 25 === 0 || (frame < 60 && frame % 10 === 0)) {
-        createRocket();
-      }
+      if (frame % 25 === 0 || (frame < 60 && frame % 10 === 0)) createRocket();
 
-      // Update rockets
       for (let i = rockets.length - 1; i >= 0; i--) {
         const r = rockets[i];
         r.trail.push({ x: r.x, y: r.y });
         if (r.trail.length > 8) r.trail.shift();
         r.y += r.vy;
         r.vy *= 0.99;
-
-        // Draw trail
         for (let j = 0; j < r.trail.length; j++) {
           const alpha = j / r.trail.length * 0.6;
           ctx!.fillStyle = `rgba(255, 255, 255, ${alpha})`;
           ctx!.fillRect(r.trail[j].x - 1, r.trail[j].y - 1, 2, 2);
         }
-
         if (r.y <= r.targetY && !r.exploded) {
           r.exploded = true;
           explode(r);
@@ -150,7 +136,6 @@ function FireworksCanvas() {
         }
       }
 
-      // Update particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.vx *= p.friction;
@@ -159,15 +144,12 @@ function FireworksCanvas() {
         p.x += p.vx;
         p.y += p.vy;
         p.life--;
-
         const alpha = Math.max(0, p.life / p.maxLife);
         ctx!.globalAlpha = alpha;
         ctx!.fillStyle = p.color;
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
         ctx!.fill();
-
-        // Sparkle trail
         if (Math.random() > 0.7) {
           ctx!.globalAlpha = alpha * 0.3;
           ctx!.fillStyle = '#fff';
@@ -175,26 +157,16 @@ function FireworksCanvas() {
           ctx!.arc(p.x - p.vx * 2, p.y - p.vy * 2, p.size * 0.5, 0, Math.PI * 2);
           ctx!.fill();
         }
-
         if (p.life <= 0) particles.splice(i, 1);
       }
-
       ctx!.globalAlpha = 1;
       animId = requestAnimationFrame(animate);
     }
-
     animate();
 
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+    const handleResize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
     window.addEventListener('resize', handleResize);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', handleResize); };
   }, []);
 
   return (
@@ -206,11 +178,33 @@ function FireworksCanvas() {
   );
 }
 
-/* ─── Intro Page ─── */
-function IntroPage() {
+/* ─── Page wrapper (required by react-pageflip: must be forwardRef) ─── */
+const PageWrapper = forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string }>(
+  ({ children, className = '' }, ref) => (
+    <div ref={ref} className={className} style={{
+      backgroundColor: '#f0e4d0',
+      backgroundImage: 'radial-gradient(ellipse at 20% 30%, rgba(139,119,80,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(139,119,80,0.06) 0%, transparent 50%)',
+      boxShadow: 'inset 0 0 40px rgba(139,119,80,0.15)',
+      overflow: 'hidden',
+      position: 'relative',
+    }}>
+      {/* Aged edge effect */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1,
+        background: 'linear-gradient(to right, rgba(139,119,80,0.12) 0%, transparent 3%, transparent 97%, rgba(139,119,80,0.12) 100%), linear-gradient(to bottom, rgba(139,119,80,0.08) 0%, transparent 3%, transparent 97%, rgba(139,119,80,0.08) 100%)',
+      }} />
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', boxSizing: 'border-box', overflowY: 'auto' }}>
+        {children}
+      </div>
+    </div>
+  )
+);
+PageWrapper.displayName = 'PageWrapper';
+
+/* ─── Intro Page Content ─── */
+function IntroContent() {
   return (
-    <div className="newspaper-fullpage flex flex-col items-center justify-center text-center px-6 sm:px-12 md:px-20">
-      {/* Ornamental top border */}
+    <div className="flex flex-col items-center justify-center text-center px-6 sm:px-12 md:px-16 h-full">
       <div className="w-full max-w-2xl">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex-1 h-[2px] bg-[#1a1a1a]" />
@@ -254,19 +248,18 @@ function IntroPage() {
   );
 }
 
-/* ─── Year Page ─── */
-function YearPage({ data, index, isActive }: { data: TimelineYear; index: number; isActive: boolean }) {
+/* ─── Year Page Content ─── */
+function YearContent({ data, index, isActive }: { data: TimelineYear; index: number; isActive: boolean }) {
   const decadeLabel = getDecadeLabel(data.year);
 
   return (
-    <div className="newspaper-fullpage overflow-y-auto px-6 sm:px-12 md:px-20 lg:px-32 py-8 sm:py-12">
+    <div className="px-6 sm:px-10 md:px-16 lg:px-20 py-6 sm:py-8 h-full overflow-y-auto">
       <div className="max-w-4xl mx-auto">
-        {/* Decade divider if applicable */}
         {decadeLabel && (
-          <div className="mb-6">
+          <div className="mb-4">
             <hr className="newspaper-rule-double" />
-            <div className="text-center py-2">
-              <span className="font-newspaper-sc text-xs sm:text-sm md:text-base tracking-[0.3em] text-[#8b7750] uppercase">
+            <div className="text-center py-1.5">
+              <span className="font-newspaper-sc text-xs sm:text-sm tracking-[0.3em] text-[#8b7750] uppercase">
                 — {decadeLabel} —
               </span>
             </div>
@@ -274,23 +267,21 @@ function YearPage({ data, index, isActive }: { data: TimelineYear; index: number
           </div>
         )}
 
-        {/* EXTRA banner for personal milestones */}
         {data.isPersonalMilestone && (
-          <div className="text-center mb-4">
+          <div className="text-center mb-3">
             <span className="inline-block bg-[#D4A017] text-white font-newspaper-headline text-xs sm:text-sm font-bold px-4 py-1.5 tracking-widest uppercase">
               EXTRA! EXTRA!
             </span>
           </div>
         )}
 
-        <article className={`${data.isPersonalMilestone ? 'border-2 border-[#D4A017] p-4 sm:p-6 md:p-8 bg-[#D4A017]/5' : ''}`}>
-          {/* Year header */}
-          <div className="flex items-baseline gap-3 mb-3">
-            <span className="text-3xl sm:text-4xl md:text-5xl select-none">{data.icon}</span>
+        <article className={`p-4 sm:p-6 border ${data.isPersonalMilestone ? 'border-[#D4A017] bg-[#D4A017]/5' : 'border-[#1a1a1a]/15'}`}>
+          <div className="flex items-baseline gap-3 mb-2">
+            <span className="text-2xl sm:text-3xl md:text-4xl select-none">{data.icon}</span>
             <div className="flex-1">
               <div className="flex items-baseline gap-3 flex-wrap">
                 <span
-                  className="font-newspaper-sc text-4xl sm:text-5xl md:text-7xl font-bold tracking-wide"
+                  className="font-newspaper-sc text-3xl sm:text-4xl md:text-6xl font-bold tracking-wide"
                   style={{ color: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }}
                 >
                   {data.year}
@@ -299,117 +290,71 @@ function YearPage({ data, index, isActive }: { data: TimelineYear; index: number
                   — Vol. {index + 1}, No. {data.year - 1995}
                 </span>
               </div>
-              <hr
-                className="newspaper-rule mt-1"
-                style={{ borderColor: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }}
-              />
+              <hr className="newspaper-rule mt-1" style={{ borderColor: data.isPersonalMilestone ? '#D4A017' : '#1a1a1a' }} />
             </div>
           </div>
 
-          {/* Typewriter Headline */}
-          <h3 className="font-newspaper-headline text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4 text-[#1a1a1a] italic min-h-[2em]">
-            {isActive ? (
-              <TypewriterText text={data.headline} speed={35} />
-            ) : (
-              data.headline
-            )}
+          <h3 className="font-newspaper-headline text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-3 text-[#1a1a1a] italic min-h-[1.5em]">
+            {isActive ? <TypewriterText text={data.headline} speed={35} /> : data.headline}
           </h3>
 
-          {/* Content area with optional scattered images */}
           <div className="relative">
-            {/* Scattered images - floating alongside content */}
             {data.scatteredImages && data.scatteredImages.length > 0 && (
               <div className="hidden md:block">
                 {data.scatteredImages.map((img, i) => (
-                  <div
-                    key={i}
-                    className={`${img.position === 'right' ? 'float-right ml-4' : 'float-left mr-4'} mb-3 w-32 lg:w-40`}
-                  >
+                  <div key={i} className={`${img.position === 'right' ? 'float-right ml-4' : 'float-left mr-4'} mb-3 w-28 lg:w-36`}>
                     <div className="border border-[#1a1a1a]/30 p-1 bg-[#e8dcc4]">
-                      <img
-                        src={img.url}
-                        alt={img.caption}
-                        className="w-full h-auto grayscale contrast-125 opacity-90"
-                        loading="lazy"
-                      />
+                      <img src={img.url} alt={img.caption} className="w-full h-auto grayscale contrast-125 opacity-90" loading="lazy" />
                     </div>
-                    <p className="font-newspaper-body text-[8px] sm:text-[9px] text-[#8b7750] italic mt-0.5 text-center">
-                      {img.caption}
-                    </p>
+                    <p className="font-newspaper-body text-[8px] text-[#8b7750] italic mt-0.5 text-center">{img.caption}</p>
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Personal milestone note */}
             {data.isPersonalMilestone && data.personalNote && (
-              <div className="mb-4 p-4 sm:p-5 border-l-4 border-[#D4A017] bg-[#D4A017]/8">
-                <p className="font-typewriter text-sm sm:text-base leading-relaxed text-[#1a1a1a]">
-                  {data.personalNote}
-                </p>
+              <div className="mb-3 p-3 sm:p-4 border-l-4 border-[#D4A017] bg-[#D4A017]/8">
+                <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#1a1a1a]">{data.personalNote}</p>
               </div>
             )}
 
-            {/* Newspaper photo if available */}
             {data.image && (
-              <div className="my-4 max-w-sm mx-auto md:mx-0">
+              <div className="my-3 max-w-xs mx-auto md:mx-0">
                 <div className="border border-[#1a1a1a]/30 p-1 bg-[#e8dcc4]">
-                  <img
-                    src={data.image}
-                    alt={data.imageCaption || `Photo from ${data.year}`}
-                    className="w-full h-auto grayscale contrast-125 opacity-90"
-                    style={{ maxHeight: '220px', objectFit: 'cover' }}
-                    loading="lazy"
-                  />
+                  <img src={data.image} alt={data.imageCaption || `Photo from ${data.year}`} className="w-full h-auto grayscale contrast-125 opacity-90" style={{ maxHeight: '180px', objectFit: 'cover' }} loading="lazy" />
                 </div>
                 {data.imageCaption && (
-                  <p className="font-newspaper-body text-[9px] sm:text-[10px] text-[#8b7750] italic mt-1 text-center">
-                    {data.imageCaption}
-                  </p>
+                  <p className="font-newspaper-body text-[9px] text-[#8b7750] italic mt-1 text-center">{data.imageCaption}</p>
                 )}
               </div>
             )}
 
-            {/* Mobile scattered images - shown inline on small screens */}
             {data.scatteredImages && data.scatteredImages.length > 0 && (
-              <div className="md:hidden flex gap-3 mb-4 overflow-x-auto">
+              <div className="md:hidden flex gap-3 mb-3 overflow-x-auto">
                 {data.scatteredImages.map((img, i) => (
-                  <div key={i} className="flex-shrink-0 w-24">
+                  <div key={i} className="flex-shrink-0 w-20">
                     <div className="border border-[#1a1a1a]/30 p-0.5 bg-[#e8dcc4]">
-                      <img
-                        src={img.url}
-                        alt={img.caption}
-                        className="w-full h-auto grayscale contrast-125 opacity-90"
-                        loading="lazy"
-                      />
+                      <img src={img.url} alt={img.caption} className="w-full h-auto grayscale contrast-125 opacity-90" loading="lazy" />
                     </div>
-                    <p className="font-newspaper-body text-[7px] text-[#8b7750] italic mt-0.5 text-center">
-                      {img.caption}
-                    </p>
+                    <p className="font-newspaper-body text-[7px] text-[#8b7750] italic mt-0.5 text-center">{img.caption}</p>
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Facts */}
-            <div className="space-y-2 clear-both">
+            <div className="space-y-1.5 clear-both">
               {data.facts.map((fact, i) => (
-                <p
-                  key={i}
-                  className="font-newspaper-body text-xs sm:text-sm md:text-base leading-relaxed text-[#2a2a2a]"
-                >
-                  <span className="font-bold text-[#1a1a1a] mr-1.5">&#9658;</span>
-                  {fact}
+                <p key={i} className="font-newspaper-body text-xs sm:text-sm leading-relaxed text-[#2a2a2a]">
+                  <span className="font-bold text-[#1a1a1a] mr-1.5">&#9658;</span>{fact}
                 </p>
               ))}
             </div>
           </div>
         </article>
 
-        {/* Page number at bottom */}
-        <div className="mt-6 pt-4 text-center">
-          <hr className="newspaper-rule-thin mb-3" />
-          <span className="font-newspaper-body text-[10px] sm:text-xs text-[#8b7750]">
+        <div className="mt-4 pt-3 text-center">
+          <hr className="newspaper-rule-thin mb-2" />
+          <span className="font-newspaper-body text-[10px] text-[#8b7750]">
             — {data.year} · Page {index + 2} of {TOTAL_PAGES} —
           </span>
         </div>
@@ -418,111 +363,89 @@ function YearPage({ data, index, isActive }: { data: TimelineYear; index: number
   );
 }
 
-/* ─── Closing Page ─── */
-function ClosingPage({ isActive }: { isActive: boolean }) {
+/* ─── Closing Page Content ─── */
+function ClosingContent() {
   return (
-    <>
-      {isActive && <FireworksCanvas />}
-      <div className="newspaper-fullpage flex flex-col items-center justify-center text-center px-6 sm:px-12 md:px-20">
-        <div className="flex items-center gap-3 mb-6 w-full max-w-lg">
-          <div className="flex-1 h-[2px] bg-[#D4A017]" />
-          <span className="text-[#D4A017] text-xl">✦</span>
-          <div className="flex-1 h-[2px] bg-[#D4A017]" />
-        </div>
-
-        <div className="max-w-lg p-6 sm:p-8 md:p-10 border-2 border-[#D4A017] bg-gradient-to-b from-[#D4A017]/8 to-[#D4A017]/3 relative">
-          {/* Corner ornaments */}
-          <div className="absolute top-2 left-2 text-[#D4A017]/30 text-lg">❧</div>
-          <div className="absolute top-2 right-2 text-[#D4A017]/30 text-lg rotate-180">❧</div>
-          <div className="absolute bottom-2 left-2 text-[#D4A017]/30 text-lg rotate-180">❧</div>
-          <div className="absolute bottom-2 right-2 text-[#D4A017]/30 text-lg">❧</div>
-
-          <h2 className="font-newspaper-headline text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-5 italic">
-            {isActive ? (
-              <TypewriterText text="30 Down, Dadbert." speed={60} />
-            ) : (
-              "30 Down, Dadbert."
-            )}
-          </h2>
-          <div className="w-16 h-[2px] bg-[#D4A017] mx-auto mb-5" />
-          <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-4">
-            What a crazy last couple of years. What a ridiculous triple decade.
-            From Babybert sleeping in the TJHSST hallways to forgetting your ID
-            at Cornell move-in to zooming around NYC on a scooter like a maniac.
-          </p>
-          <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-4">
-            Somehow you tricked Eugenia into marrying you, brought Julia into
-            the world, became a dog dad to Jasmine the diva, pivoted from burnt-out
-            Deloitte consultant to tech PM (lateral move at best), and still find
-            time to be hardstuck in ranked. Impressive, honestly.
-          </p>
-          <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-4" />
-          <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-4">
-            I'm super proud to have you as an older brother and a figure I grew
-            up learning from — even if I didn't listen to any of your nagging or
-            lessons. I'm excited to continue annoying you in NYC.
-          </p>
-          <p className="font-typewriter text-base sm:text-lg leading-relaxed text-[#D4A017] font-bold">
-            Happy 30th, Dadbert. 🎂
-          </p>
-          <p className="font-typewriter text-[10px] sm:text-xs text-[#8b7750] mt-2 italic">
-            (Love you though. Don't tell anyone I said that.)
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3 mt-6 w-full max-w-lg">
-          <div className="flex-1 h-[2px] bg-[#D4A017]" />
-          <span className="text-[#D4A017] text-xl">✦</span>
-          <div className="flex-1 h-[2px] bg-[#D4A017]" />
-        </div>
-
-        {/* Footer */}
-        <div className="mt-6 font-newspaper-body text-[10px] sm:text-xs text-[#8b7750] italic space-y-1">
-          <p>Published with love &middot; The Daily Chronicle &middot; Special Anniversary Edition</p>
-          <p>© 1996–2026 &middot; All memories reserved</p>
-          <p className="mt-3 text-sm">❧</p>
-        </div>
+    <div className="flex flex-col items-center justify-center text-center px-6 sm:px-10 md:px-16 h-full">
+      <div className="flex items-center gap-3 mb-5 w-full max-w-lg">
+        <div className="flex-1 h-[2px] bg-[#D4A017]" />
+        <span className="text-[#D4A017] text-xl">✦</span>
+        <div className="flex-1 h-[2px] bg-[#D4A017]" />
       </div>
-    </>
+
+      <div className="max-w-lg p-5 sm:p-7 md:p-8 border-2 border-[#D4A017] bg-gradient-to-b from-[#D4A017]/8 to-[#D4A017]/3 relative">
+        <div className="absolute top-2 left-2 text-[#D4A017]/30 text-lg">❧</div>
+        <div className="absolute top-2 right-2 text-[#D4A017]/30 text-lg rotate-180">❧</div>
+        <div className="absolute bottom-2 left-2 text-[#D4A017]/30 text-lg rotate-180">❧</div>
+        <div className="absolute bottom-2 right-2 text-[#D4A017]/30 text-lg">❧</div>
+
+        <h2 className="font-newspaper-headline text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 italic">
+          <TypewriterText text="30 Down, Dadbert." speed={60} />
+        </h2>
+        <div className="w-16 h-[2px] bg-[#D4A017] mx-auto mb-4" />
+        <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
+          What a crazy last couple of years. What a ridiculous triple decade.
+          From Babybert sleeping in the TJHSST hallways to forgetting your ID
+          at Cornell move-in to zooming around NYC on a scooter like a maniac.
+        </p>
+        <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
+          Somehow you tricked Eugenia into marrying you, brought Julia into
+          the world, became a dog dad to Jasmine the diva, pivoted from burnt-out
+          Deloitte consultant to tech PM (lateral move at best), and still find
+          time to be hardstuck in ranked. Impressive, honestly.
+        </p>
+        <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-3" />
+        <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
+          I'm super proud to have you as an older brother and a figure I grew
+          up learning from — even if I didn't listen to any of your nagging or
+          lessons. I'm excited to continue annoying you in NYC.
+        </p>
+        <p className="font-typewriter text-base sm:text-lg leading-relaxed text-[#D4A017] font-bold">
+          Happy 30th, Dadbert. 🎂
+        </p>
+        <p className="font-typewriter text-[10px] sm:text-xs text-[#8b7750] mt-2 italic">
+          (Love you though. Don't tell anyone I said that.)
+        </p>
+      </div>
+
+      <div className="flex items-center gap-3 mt-5 w-full max-w-lg">
+        <div className="flex-1 h-[2px] bg-[#D4A017]" />
+        <span className="text-[#D4A017] text-xl">✦</span>
+        <div className="flex-1 h-[2px] bg-[#D4A017]" />
+      </div>
+
+      <div className="mt-5 font-newspaper-body text-[10px] sm:text-xs text-[#8b7750] italic space-y-1">
+        <p>Published with love &middot; The Daily Chronicle &middot; Special Anniversary Edition</p>
+        <p>© 1996–2026 &middot; All memories reserved</p>
+        <p className="mt-3 text-sm">❧</p>
+      </div>
+    </div>
   );
 }
 
-/* ─── Page Flip Transition ─── */
-const pageVariants = {
-  enter: (direction: number) => ({
-    rotateY: direction > 0 ? 90 : -90,
-    opacity: 0,
-    scale: 0.95,
-  }),
-  center: {
-    rotateY: 0,
-    opacity: 1,
-    scale: 1,
-  },
-  exit: (direction: number) => ({
-    rotateY: direction > 0 ? -90 : 90,
-    opacity: 0,
-    scale: 0.95,
-  }),
-};
-
 /* ─── Main Component ─── */
 export default function NewspaperTimeline() {
+  const flipBookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [showFireworks, setShowFireworks] = useState(false);
+  const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
 
-  const goToPage = useCallback((newPage: number) => {
-    if (isAnimating) return;
-    if (newPage < 0 || newPage >= TOTAL_PAGES) return;
-    setIsAnimating(true);
-    setDirection(newPage > currentPage ? 1 : -1);
-    setCurrentPage(newPage);
-  }, [currentPage, isAnimating]);
+  // Track dimensions
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  const flipNext = useCallback(() => goToPage(currentPage + 1), [currentPage, goToPage]);
-  const flipPrev = useCallback(() => goToPage(currentPage - 1), [currentPage, goToPage]);
+  const flipNext = useCallback(() => {
+    flipBookRef.current?.pageFlip()?.flipNext();
+  }, []);
+
+  const flipPrev = useCallback(() => {
+    flipBookRef.current?.pageFlip()?.flipPrev();
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -539,33 +462,16 @@ export default function NewspaperTimeline() {
     return () => window.removeEventListener('keydown', handleKey);
   }, [flipNext, flipPrev]);
 
-  // Swipe support for mobile
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    };
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!touchStartRef.current) return;
-      const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
-      const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
-        if (dx < 0) flipNext();
-        else flipPrev();
-      }
-      touchStartRef.current = null;
-    };
-
-    el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchend', onTouchEnd, { passive: true });
-    return () => {
-      el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchend', onTouchEnd);
-    };
-  }, [flipNext, flipPrev]);
+  const onFlip = useCallback((e: any) => {
+    const page = e.data;
+    setCurrentPage(page);
+    // Show fireworks on the last page
+    if (page === TOTAL_PAGES - 1) {
+      setShowFireworks(true);
+    } else {
+      setShowFireworks(false);
+    }
+  }, []);
 
   const progressPercent = (currentPage / (TOTAL_PAGES - 1)) * 100;
   const currentYearLabel =
@@ -575,10 +481,8 @@ export default function NewspaperTimeline() {
         ? 'Fin'
         : String(timelineData[Math.min(currentPage - 1, timelineData.length - 1)]?.year || '');
 
-  const isClosingPage = currentPage === TOTAL_PAGES - 1;
-
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-hidden select-none" style={{ perspective: '1500px' }}>
+    <div className="relative min-h-screen overflow-hidden select-none">
       {/* Paper texture background */}
       <div
         className="fixed inset-0 bg-cover bg-center opacity-20 pointer-events-none"
@@ -586,12 +490,14 @@ export default function NewspaperTimeline() {
       />
       <div className="fixed inset-0 aged-paper noise-overlay pointer-events-none" style={{ zIndex: 1 }} />
 
+      {/* Fireworks on closing page */}
+      {showFireworks && <FireworksCanvas />}
+
       {/* Progress bar at top */}
       <div className="fixed top-0 left-0 right-0 z-40 h-1.5 bg-[#d4c5a9]">
-        <motion.div
-          className="h-full bg-[#D4A017]"
-          animate={{ width: `${progressPercent}%` }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+        <div
+          className="h-full bg-[#D4A017] transition-all duration-500 ease-out"
+          style={{ width: `${progressPercent}%` }}
         />
       </div>
 
@@ -602,38 +508,53 @@ export default function NewspaperTimeline() {
         <span>{currentPage + 1} / {TOTAL_PAGES}</span>
       </div>
 
-      {/* Page content with flip animation */}
-      <div className="relative z-10" style={{ transformStyle: 'preserve-3d' }}>
-        <AnimatePresence
-          mode="wait"
-          custom={direction}
-          onExitComplete={() => setIsAnimating(false)}
+      {/* The flipbook */}
+      <div className="relative z-10 flex items-center justify-center" style={{ minHeight: '100vh' }}>
+        {/* @ts-ignore - react-pageflip types are incomplete */}
+        <HTMLFlipBook
+          ref={flipBookRef}
+          width={dimensions.width}
+          height={dimensions.height}
+          size="fixed"
+          minWidth={320}
+          maxWidth={2000}
+          minHeight={400}
+          maxHeight={2000}
+          showCover={false}
+          mobileScrollSupport={false}
+          onFlip={onFlip}
+          flippingTime={800}
+          usePortrait={true}
+          startPage={0}
+          drawShadow={true}
+          maxShadowOpacity={0.3}
+          useMouseEvents={true}
+          swipeDistance={30}
+          clickEventForward={true}
+          className="newspaper-flipbook"
+          style={{}}
+          startZIndex={0}
+          autoSize={false}
+          showPageCorners={true}
+          disableFlipByClick={false}
         >
-          <motion.div
-            key={currentPage}
-            custom={direction}
-            variants={pageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              rotateY: { type: "spring", stiffness: 200, damping: 30, duration: 0.5 },
-              opacity: { duration: 0.3 },
-              scale: { duration: 0.3 },
-            }}
-            style={{ transformOrigin: direction > 0 ? 'left center' : 'right center' }}
-          >
-            {currentPage === 0 && <IntroPage />}
-            {currentPage > 0 && currentPage < TOTAL_PAGES - 1 && (
-              <YearPage
-                data={timelineData[currentPage - 1]}
-                index={currentPage - 1}
-                isActive={true}
-              />
-            )}
-            {isClosingPage && <ClosingPage isActive={true} />}
-          </motion.div>
-        </AnimatePresence>
+          {/* Cover / Intro page */}
+          <PageWrapper>
+            <IntroContent />
+          </PageWrapper>
+
+          {/* Year pages */}
+          {timelineData.map((data, index) => (
+            <PageWrapper key={data.year}>
+              <YearContent data={data} index={index} isActive={currentPage === index + 1} />
+            </PageWrapper>
+          ))}
+
+          {/* Closing page */}
+          <PageWrapper>
+            <ClosingContent />
+          </PageWrapper>
+        </HTMLFlipBook>
       </div>
 
       {/* Navigation arrows */}
@@ -666,7 +587,7 @@ export default function NewspaperTimeline() {
 
       {/* Bottom navigation hint */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 font-newspaper-body text-[10px] sm:text-xs text-[#8b7750]/60 text-center">
-        <span className="hidden sm:inline">← → arrow keys · swipe · click arrows</span>
+        <span className="hidden sm:inline">← → arrow keys · drag page corner · click arrows</span>
         <span className="sm:hidden">swipe or tap arrows</span>
       </div>
     </div>
