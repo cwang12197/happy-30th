@@ -385,26 +385,28 @@ function ClosingContent() {
         <div className="w-16 h-[2px] bg-[#D4A017] mx-auto mb-4" />
         <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
           What a crazy last couple of years. What a ridiculous triple decade.
-          From Babybert sleeping in the TJHSST hallways to forgetting your ID
-          at Cornell move-in to zooming around NYC on a scooter like a maniac.
+          Let's be real — you peaked at TJ. Sleeping in the hallways, getting
+          into the yearbook for it, the whole golden era. Everything since then
+          has been a slow, graceful decline.
         </p>
         <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
-          Somehow you tricked Eugenia into marrying you, brought Julia into
-          the world, became a dog dad to Jasmine the diva, pivoted from burnt-out
-          Deloitte consultant to tech PM (lateral move at best), and still find
-          time to be hardstuck in ranked. Impressive, honestly.
+          And yet somehow you still managed to trick Eugenia into marrying you,
+          bring Julia into the world, adopt Jasmine the diva, forget your Cornell
+          ID on move-in day, and zoom around NYC on a scooter like you own the place.
+          Not bad for someone whose peak was a high school hallway.
         </p>
         <div className="w-8 h-[1px] bg-[#8b7750] mx-auto my-3" />
         <p className="font-typewriter text-xs sm:text-sm leading-relaxed text-[#2a2a2a] mb-3">
-          I'm super proud to have you as an older brother and a figure I grew
-          up learning from — even if I didn't listen to any of your nagging or
-          lessons. I'm excited to continue annoying you in NYC.
+          I'm proud to have you as an older brother and a figure I grew up
+          learning from — even if I didn't listen to a single thing you said.
+          Here's to more in NYC. More scooter rides, more Jasmine walks, more
+          questionable life decisions, and more of me annoying you about all of it.
         </p>
         <p className="font-typewriter text-base sm:text-lg leading-relaxed text-[#D4A017] font-bold">
           Happy 30th, Dadbert. 🎂
         </p>
         <p className="font-typewriter text-[10px] sm:text-xs text-[#8b7750] mt-2 italic">
-          (Love you though. Don't tell anyone I said that.)
+          (Here's to the next 30. You're gonna need it.)
         </p>
       </div>
 
