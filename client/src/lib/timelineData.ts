@@ -21,7 +21,8 @@ export const timelineData: TimelineYear[] = [
       "Nintendo 64 launched, bringing us Super Mario 64 and true 3D gaming.",
       "Dolly the Sheep became the first mammal cloned from an adult cell.",
       "The Macarena was inescapable. Absolutely everywhere.",
-      "Google was just a research project at Stanford called 'BackRub.'"
+      "Google was just a research project at Stanford called 'BackRub.'",
+      "🐀 Year of the Rat — Rats are clever, resourceful, and always finding a way to survive. Your 30-year fortune: 'You will peak in high school and spend the rest of your life telling people about it.'"
     ],
     category: 'personal',
     isPersonalMilestone: true,
