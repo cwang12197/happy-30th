@@ -181,7 +181,7 @@ function FireworksCanvas() {
 /* ─── Page wrapper (required by react-pageflip: must be forwardRef) ─── */
 const PageWrapper = forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string }>(
   ({ children, className = '' }, ref) => (
-    <div ref={ref} className={className} style={{
+    <div ref={ref} className={`page-wrapper-flip ${className}`} style={{
       backgroundColor: '#f0e4d0',
       backgroundImage: 'radial-gradient(ellipse at 20% 30%, rgba(139,119,80,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(139,119,80,0.06) 0%, transparent 50%)',
       boxShadow: 'inset 0 0 40px rgba(139,119,80,0.15)',
@@ -447,6 +447,20 @@ export default function NewspaperTimeline() {
     flipBookRef.current?.pageFlip()?.flipPrev();
   }, []);
 
+  // Backface fix: Add a CSS class to the flipbook container during flip animation
+  // that hides the bottom page content, preventing text bleed-through.
+  const [isFlipping, setIsFlipping] = useState(false);
+
+  const onChangeState = useCallback((e: any) => {
+    const state = e.data;
+    // States: 'read' (idle), 'flipping' (animating), 'user_fold' (dragging)
+    if (state === 'flipping' || state === 'user_fold') {
+      setIsFlipping(true);
+    } else {
+      setIsFlipping(false);
+    }
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -509,7 +523,7 @@ export default function NewspaperTimeline() {
       </div>
 
       {/* The flipbook */}
-      <div className="relative z-10 flex items-center justify-center" style={{ minHeight: '100vh' }}>
+      <div className={`relative z-10 flex items-center justify-center ${isFlipping ? 'flipbook-animating' : ''}`} style={{ minHeight: '100vh' }}>
         {/* @ts-ignore - react-pageflip types are incomplete */}
         <HTMLFlipBook
           ref={flipBookRef}
@@ -523,11 +537,12 @@ export default function NewspaperTimeline() {
           showCover={false}
           mobileScrollSupport={false}
           onFlip={onFlip}
+          onChangeState={onChangeState}
           flippingTime={800}
           usePortrait={true}
           startPage={0}
           drawShadow={true}
-          maxShadowOpacity={0.3}
+          maxShadowOpacity={0.5}
           useMouseEvents={true}
           swipeDistance={30}
           clickEventForward={true}
