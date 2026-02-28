@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BirthdaySplash from '@/components/BirthdaySplash';
 import NewspaperTimeline from '@/components/NewspaperTimeline';
 import Confetti from '@/components/Confetti';
+import MusicPlayer from '@/components/MusicPlayer';
 
 export default function Home() {
   const [phase, setPhase] = useState<'splash' | 'transitioning' | 'timeline'>('splash');
@@ -34,6 +35,9 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Confetti canvas overlay - only on splash */}
       <Confetti active={phase === 'splash'} />
+
+      {/* Background music - plays on splash page */}
+      <MusicPlayer active={phase === 'splash'} />
 
       <AnimatePresence mode="wait">
         {phase === 'splash' && (
