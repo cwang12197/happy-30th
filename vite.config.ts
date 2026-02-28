@@ -11,13 +11,6 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 // Writes browser logs directly to files, trimmed when exceeding size limit
 // =============================================================================
 
-const isGitHubPages = process.env.GITHUB_PAGES === 'true';
-
-export default defineConfig({
-  base: isGitHubPages ? '/happy-30th/' : '/',
-  // ... rest of config
-
-
 const PROJECT_ROOT = import.meta.dirname;
 const LOG_DIR = path.join(PROJECT_ROOT, ".manus-logs");
 const MAX_LOG_SIZE_BYTES = 1 * 1024 * 1024; // 1MB per log file
@@ -157,9 +150,12 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
+const isGitHubPages = process.env.GITHUB_PAGES === 'true';
+
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
 export default defineConfig({
+  base: isGitHubPages ? '/happy-30th/' : '/',
   plugins,
   resolve: {
     alias: {
@@ -176,7 +172,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    strictPort: false, // Will find next available port if 3000 is busy
+    strictPort: false,
     host: true,
     allowedHosts: [
       ".manuspre.computer",
